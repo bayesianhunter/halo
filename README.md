@@ -8,7 +8,7 @@
 
 <p align="center"><sub>macOS 26+ · Apple silicon · GPL-3.0 · <a href="https://github.com/bayesianhunter/halo/releases">Download</a></sub></p>
 
-https://github.com/user-attachments/assets/aef22af7-a068-4ebf-89ca-f4ad9844fd84
+https://github.com/user-attachments/assets/2aa22e10-7f1d-403d-aee5-70ea875cea0b
 
 <h2 id="on-your-mac">On your Mac</h2>
 
