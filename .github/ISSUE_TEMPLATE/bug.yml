@@ -1,0 +1,27 @@
+name: Bug report
+description: Something in Halo doesn't work as described
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Halo and macOS versions
+      description: Halo's About page, and Apple menu > About This Mac (macOS version and Mac model).
+      placeholder: Halo 0.8.0, macOS 27.2, Apple silicon
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics summary
+      description: >-
+        Diagnostics page → Copy next to the summary, or `/Applications/Halo.app/Contents/MacOS/Halo --diagnostics`
+        and paste latest.md. Read it first and remove anything you'd rather not share.
+      render: markdown

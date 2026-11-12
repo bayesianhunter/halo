@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Halo</string>
+	<key>CFBundleExecutable</key>
+	<string>Halo</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.liuzhekan.Halo</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh-Hans</string>
+	</array>
+	<key>CFBundleName</key>
+	<string>Halo</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.8.0</string>
+	<key>CFBundleVersion</key>
+	<string>68</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>26.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Reads the battery level of connected mice and keyboards through the standard Bluetooth Battery Service. Halo doesn’t connect to new devices or change anything.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_halo._tcp</string>
+	</array>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 Beijing Bayesian Hunter Technology Co., Ltd</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Connects to the Mac you pair with to show devices and battery levels. When sharing is enabled, it also syncs scrolling settings and transfers clipboard contents.</string>
+	<key>SUFeedURL</key>
+	<string>https://halo.liuzhekan.com/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>1i9u9n5+7gyL+h77wm3aBd5P+3TEys+DlJ8rKW9hf/g=</string>
+</dict>
+</plist>

@@ -1,0 +1,4 @@
+/* Bluetooth permission prompt */
+"NSBluetoothAlwaysUsageDescription" = "读取已连接鼠标和键盘的电量（蓝牙标准电池服务），不连接新设备，也不做任何修改。";
+/* Local Network permission prompt, for Halo link */
+"NSLocalNetworkUsageDescription" = "连接你确认配对的另一台 Mac，显示外设和电量；打开共享后，还会同步滚动设置和传递剪贴板内容。";

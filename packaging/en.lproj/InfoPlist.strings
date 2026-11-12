@@ -1,0 +1,4 @@
+/* Bluetooth permission prompt */
+"NSBluetoothAlwaysUsageDescription" = "Reads the battery level of connected mice and keyboards through the standard Bluetooth Battery Service. Halo doesn’t connect to new devices or change anything.";
+/* Local Network permission prompt, for Halo link */
+"NSLocalNetworkUsageDescription" = "Connects to the Mac you pair with to show devices and battery levels. When sharing is enabled, it also syncs scrolling settings and transfers clipboard contents.";

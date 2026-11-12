@@ -1,0 +1,3023 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ %@ Available…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可更新到 %@ %@…"
+          }
+        }
+      }
+    },
+    "%@ %@ Available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可更新到 %@ %@"
+          }
+        }
+      }
+    },
+    "%@’s keyboard and mouse aren’t responding. They will come back on their own shortly." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的键盘和鼠标暂时没反应，稍后会自己恢复。"
+          }
+        }
+      }
+    },
+    "Check for Updates…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查更新…"
+          }
+        }
+      }
+    },
+    "Keep both Macs on the same network. Click Pair on both; if the six-digit codes are the same, click Match on both." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两台 Mac 接入同一网络，都点「配对」；两边的六位数一样，就在两台上都点「一致」。"
+          }
+        }
+      }
+    },
+    "Keyboard and Mouse Back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "键盘和鼠标恢复了"
+          }
+        }
+      }
+    },
+    "Keyboard and Mouse Not Responding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "键盘和鼠标暂时没反应"
+          }
+        }
+      }
+    },
+    "Pair with Another Mac…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与另一台 Mac 配对…"
+          }
+        }
+      }
+    },
+    "Pairing…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在配对…"
+          }
+        }
+      }
+    },
+    "Sync settings and clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步设备设置与剪贴板"
+          }
+        }
+      }
+    },
+    " · Case %ld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " · 盒 %ld%%"
+          }
+        }
+      }
+    },
+    "%1$@ %2$@ used its microphone; call mode for %3$ld s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@ 用了它的麦克风，通话模式 %ld 秒"
+          }
+        }
+      }
+    },
+    "%2$@ changed the direction of %1$@ after it was reversed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 翻转后的方向被 %@ 改了"
+          }
+        }
+      }
+    },
+    "%@ Call mode for %ld s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 切到通话模式 %ld 秒"
+          }
+        }
+      }
+    },
+    "%@ Incoming call; call mode for %ld s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 来电，切到通话模式 %ld 秒"
+          }
+        }
+      }
+    },
+    "%@ Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 设置"
+          }
+        }
+      }
+    },
+    "%@ Settings…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 设置…"
+          }
+        }
+      }
+    },
+    "%@ already holds a folder with that name; left it alone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 已有同名的文件夹，没有改动"
+          }
+        }
+      }
+    },
+    "%@ changed the direction of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 改了 %@ 的方向"
+          }
+        }
+      }
+    },
+    "%@ changed the scroll direction of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 改了 %@ 的滚动方向"
+          }
+        }
+      }
+    },
+    "%@ couldn’t be read and is left as it is, not saved over; its settings are back to their defaults for now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 无法读取，已保持原样不覆盖，其中的设置暂按默认"
+          }
+        }
+      }
+    },
+    "%@ couldn’t be read and was kept as %@; its settings are back to their defaults for now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 无法读取，已另存为 %@，其中的设置暂按默认"
+          }
+        }
+      }
+    },
+    "%@ couldn’t be read; this Mac’s ID and pairing were recovered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 无法读取，已救回本机 ID 和配对"
+          }
+        }
+      }
+    },
+    "%@ didn’t quit; quit it from its own menu" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 没有退出，请在它自己的菜单里退出"
+          }
+        }
+      }
+    },
+    "%@ didn’t send its clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 没有传来剪贴板"
+          }
+        }
+      }
+    },
+    "%@ is charging, %ld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 正在充电，电量 %ld%%"
+          }
+        }
+      }
+    },
+    "%@ is locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 已锁屏"
+          }
+        }
+      }
+    },
+    "%@ is using its microphone · Call quality" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 在用它的麦克风 · 通话音质"
+          }
+        }
+      }
+    },
+    "%@ is using its microphone, so it dropped to call quality" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 在用它的麦克风，音质降为通话音质"
+          }
+        }
+      }
+    },
+    "%@ is using the microphone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 在用麦克风"
+          }
+        }
+      }
+    },
+    "%@ may have changed the direction of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可能是 %@ 改了 %@ 的方向"
+          }
+        }
+      }
+    },
+    "%@ microphone rule: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 麦克风规则：%@"
+          }
+        }
+      }
+    },
+    "%@ reverse: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 翻转：%@"
+          }
+        }
+      }
+    },
+    "%@ wheel speed: %@×" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 滚轮速度：%@×"
+          }
+        }
+      }
+    },
+    "%@: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@：%@"
+          }
+        }
+      }
+    },
+    "%@: %ld%% battery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 电量 %ld%%"
+          }
+        }
+      }
+    },
+    "%@’s clipboard has no text or image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的剪贴板里没有文字或图片"
+          }
+        }
+      }
+    },
+    "%@’s clipboard holds something temporary or forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的剪贴板是临时或转来的内容"
+          }
+        }
+      }
+    },
+    "%@’s clipboard is over 16 MB" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的剪贴板超过 16 MB"
+          }
+        }
+      }
+    },
+    "%ld Saved Devices" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld 台已保存设备"
+          }
+        }
+      }
+    },
+    "1 Saved Device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 台已保存设备"
+          }
+        }
+      }
+    },
+    "; %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "，%@"
+          }
+        }
+      }
+    },
+    "About" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
+    },
+    "About %ld days left" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "约还能用 %ld 天"
+          }
+        }
+      }
+    },
+    "About %ld h left" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "约还能用 %ld 小时"
+          }
+        }
+      }
+    },
+    "Accessibility Access" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "辅助功能权限"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加"
+          }
+        }
+      }
+    },
+    "Added; new agent sessions can use it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已添加，新开的 agent 会话可用"
+          }
+        }
+      }
+    },
+    "After Halo reversed it as you set, %@ changed the direction again. Turn off its scroll setting, or quit it." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 按你的设置翻转后，方向又被 %@ 改了。关掉它的滚动设置，或者退出它。"
+          }
+        }
+      }
+    },
+    "After Halo reversed it as you set, the direction was changed again. It could be: %@. Try turning off their scroll settings one at a time." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 按你的设置翻转后，方向又被改了。可能是：%@。逐个关掉它们的滚动设置试试。"
+          }
+        }
+      }
+    },
+    "Agent Skill" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent 技能"
+          }
+        }
+      }
+    },
+    "Allow Halo in System Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要在系统设置里允许 Halo"
+          }
+        }
+      }
+    },
+    "Allow Halo in System Settings…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在系统设置里允许 Halo…"
+          }
+        }
+      }
+    },
+    "Allow Halo to always read the clipboard in System Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要在系统设置里允许 Halo 始终读取剪贴板"
+          }
+        }
+      }
+    },
+    "Allowed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已允许"
+          }
+        }
+      }
+    },
+    "Allow…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许…"
+          }
+        }
+      }
+    },
+    "Almost empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快没电了"
+          }
+        }
+      }
+    },
+    "Also connected: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同时连着 %@"
+          }
+        }
+      }
+    },
+    "Also the system microphone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "也是系统麦克风"
+          }
+        }
+      }
+    },
+    "Also the system microphone · Call quality" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "也是系统麦克风 · 通话音质"
+          }
+        }
+      }
+    },
+    "Also the system microphone · No other microphone to switch to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "也是系统麦克风 · 没有别的麦克风可以换"
+          }
+        }
+      }
+    },
+    "An agent changed Halo’s settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent 改了 Halo 的设置"
+          }
+        }
+      }
+    },
+    "An agent changed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent 改了：%@"
+          }
+        }
+      }
+    },
+    "An app is using its microphone · Call quality" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有 App 在用它的麦克风 · 通话音质"
+          }
+        }
+      }
+    },
+    "An app is using its microphone, so it dropped to call quality" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有 App 在用它的麦克风，音质降为通话音质"
+          }
+        }
+      }
+    },
+    "Another Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac"
+          }
+        }
+      }
+    },
+    "Another Mac Connected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 已连接"
+          }
+        }
+      }
+    },
+    "Another app changed the direction of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的方向被其他 App 改了"
+          }
+        }
+      }
+    },
+    "Another app changed the direction of %@ after it was reversed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 翻转后的方向被其他 App 改了"
+          }
+        }
+      }
+    },
+    "Another app changed the scroll direction of %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的滚动方向被其他 App 改了"
+          }
+        }
+      }
+    },
+    "Battery %ld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量 %ld%%"
+          }
+        }
+      }
+    },
+    "Battery from about %ld min ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "约 %ld 分钟前的电量"
+          }
+        }
+      }
+    },
+    "Bluetooth Device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝牙设备"
+          }
+        }
+      }
+    },
+    "Both Macs delete the pairing key and stop showing each other’s devices." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两台 Mac 都会删除配对密钥，不再显示对方的外设。"
+          }
+        }
+      }
+    },
+    "Built-in Keyboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内置键盘"
+          }
+        }
+      }
+    },
+    "Built-in Trackpad" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内置触控板"
+          }
+        }
+      }
+    },
+    "CLAUSE_SEPARATOR" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "，"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", "
+          }
+        }
+      },
+      "comment" : "Joins the parts of a spoken description"
+    },
+    "Can change scrolling" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "能修改滚动"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Can’t reach %@: the network is blocking the connection; restarting the router usually fixes it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连不上 %@：网络拦下了两台之间的连接，重启路由器通常就好"
+          }
+        }
+      }
+    },
+    "Charging" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在充电"
+          }
+        }
+      }
+    },
+    "Click to get %@’s clipboard as it is now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点一下取 %@ 现在的剪贴板"
+          }
+        }
+      }
+    },
+    "Click to put it back on the clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点一下放回剪贴板"
+          }
+        }
+      }
+    },
+    "Clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剪贴板"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
+    "Collapsed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已收起"
+          }
+        }
+      }
+    },
+    "Compare the number on %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "核对 %@ 上的数字"
+          }
+        }
+      }
+    },
+    "Compare the numbers on both Macs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "核对两台显示的数字"
+          }
+        }
+      }
+    },
+    "Connected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已连接"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已拷贝"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拷贝"
+          }
+        }
+      }
+    },
+    "Copy: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拷贝：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t change Open at Login: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开没有设置成功：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t change it: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有改成：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t export diagnostics: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断导出失败：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t save settings: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置未能保存：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t start listening; scrolling unchanged. Check Accessibility access." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "监听创建失败；未修改滚动，请检查辅助功能权限"
+          }
+        }
+      }
+    },
+    "Cut" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剪切"
+          }
+        }
+      }
+    },
+    "Devices" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设备"
+          }
+        }
+      }
+    },
+    "Diagnostics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断"
+          }
+        }
+      }
+    },
+    "Diagnostics Summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断摘要"
+          }
+        }
+      }
+    },
+    "Disconnected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已断开"
+          }
+        }
+      }
+    },
+    "Don’t Match" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不一致"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑"
+          }
+        }
+      }
+    },
+    "Estimated from the last %ld days, about %@%% a day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按过去 %ld 天的耗电估算，每天约 %@%%"
+          }
+        }
+      }
+    },
+    "Everything looks fine" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一切正常"
+          }
+        }
+      }
+    },
+    "Expanded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已展开"
+          }
+        }
+      }
+    },
+    "Fair signal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信号中"
+          }
+        }
+      }
+    },
+    "Follow System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跟随系统"
+          }
+        }
+      }
+    },
+    "Free software under the GNU GPL v3, with no warranty. Updates by Sparkle (MIT)." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自由软件，以 GNU GPL v3 发布，不提供任何担保。更新由 Sparkle（MIT）提供。"
+          }
+        }
+      }
+    },
+    "From another Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "来自另一台 Mac"
+          }
+        }
+      }
+    },
+    "General" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用"
+          }
+        }
+      }
+    },
+    "Get Clipboard from %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取 %@ 的剪贴板"
+          }
+        }
+      }
+    },
+    "Get Latest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取最新"
+          }
+        }
+      }
+    },
+    "Halo can’t reach my other Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 连不上另一台 Mac 了"
+          }
+        }
+      }
+    },
+    "Halo is paused on the other Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 上的 Halo 已暂停"
+          }
+        }
+      }
+    },
+    "Halo on %@ can’t read the clipboard yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 上的 Halo 还不能读取剪贴板"
+          }
+        }
+      }
+    },
+    "Halo wasn’t allowed to read the pairing key from the keychain; it will ask again when reopened" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "钥匙串里的配对密钥未获允许读取；重新打开 Halo 时会再问"
+          }
+        }
+      }
+    },
+    "How Scrolling Works" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "滚动设置说明"
+          }
+        }
+      }
+    },
+    "If both Macs show the same number, click Match on both. If not, click Don’t Match: another device may be posing as your Mac." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两台显示同一个数字，就在两台上都点「一致」；不一样就点「不一致」，可能有别的设备在冒充。"
+          }
+        }
+      }
+    },
+    "Image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图片"
+          }
+        }
+      }
+    },
+    "Install Halo on it too and pair, to keep reverse and the clipboard the same" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在那台也装上 Halo 并配对，翻转和剪贴板就会保持一致"
+          }
+        }
+      }
+    },
+    "It changed the direction again after Halo reversed it. Turn off its scroll setting, or quit it." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 翻转后，方向又被它改了。关掉它的滚动设置，或退出它。"
+          }
+        }
+      }
+    },
+    "Its devices show once the other Mac is online." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 上线后会显示它的设备。"
+          }
+        }
+      }
+    },
+    "Just now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刚刚"
+          }
+        }
+      }
+    },
+    "Keep" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留"
+          }
+        }
+      }
+    },
+    "LIST_SEPARATOR" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "、"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", "
+          }
+        }
+      },
+      "comment" : "Joins names in a list"
+    },
+    "Language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        }
+      }
+    },
+    "Left %ld%% · Right %ld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "左 %ld%% · 右 %ld%%"
+          }
+        }
+      }
+    },
+    "Local pointing device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本机指针设备"
+          }
+        }
+      }
+    },
+    "Local trackpad" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本机触控板"
+          }
+        }
+      }
+    },
+    "Looking for your other Mac… click Pair on it too" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在寻找另一台 Mac…在它上面也点「配对」"
+          }
+        }
+      }
+    },
+    "Match" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一致"
+          }
+        }
+      }
+    },
+    "Microphone in use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "麦克风在用"
+          }
+        }
+      }
+    },
+    "Mouse connected to another Mac? Move the pointer here with Universal Control and it shows up by itself." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鼠标连在另一台 Mac 上？用通用控制把指针移过来，它会自动出现在这里。"
+          }
+        }
+      }
+    },
+    "Music only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只放音乐"
+          }
+        }
+      }
+    },
+    "Music only: the system microphone never uses this speaker. Click to turn off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音箱只放音乐：系统麦克风不会用它。点一下关闭"
+          }
+        }
+      }
+    },
+    "Music only is on, but there is no other microphone to switch to. Click to turn off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已设为只放音乐，但没有别的麦克风可以换过去。点一下关闭"
+          }
+        }
+      }
+    },
+    "My mouse scrolls the wrong way in Halo — take a look" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 里鼠标滚动方向不对，帮我看看"
+          }
+        }
+      }
+    },
+    "My speaker keeps cutting out — check it with Halo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音箱声音断断续续，用 Halo 查一下"
+          }
+        }
+      }
+    },
+    "Needs Accessibility access" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要辅助功能权限"
+          }
+        }
+      }
+    },
+    "Needs Accessibility access: allow Halo in System Settings and it starts on its own" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要辅助功能权限：在系统设置中允许 Halo 后自动开始"
+          }
+        }
+      }
+    },
+    "No devices connected to the other Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 没有连接外设"
+          }
+        }
+      }
+    },
+    "No devices reversed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有设备在翻转"
+          }
+        }
+      }
+    },
+    "No mouse or trackpad found yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有识别到鼠标或触控板"
+          }
+        }
+      }
+    },
+    "No mouse or trackpad yet. If yours is connected to another Mac, move the pointer here with Universal Control and it shows up by itself." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有鼠标或触控板。如果它连在另一台 Mac 上，用通用控制把指针移过来，它会自动出现在这里。"
+          }
+        }
+      }
+    },
+    "No other Bluetooth devices" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有其他蓝牙设备"
+          }
+        }
+      }
+    },
+    "No other Mac that is pairing was found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有找到也在配对的另一台 Mac"
+          }
+        }
+      }
+    },
+    "Not connected to %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有连上 %@"
+          }
+        }
+      }
+    },
+    "Not listening" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未在监听"
+          }
+        }
+      }
+    },
+    "Not listening to scrolling" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有在监听滚动"
+          }
+        }
+      }
+    },
+    "Not listening; scrolling is unchanged" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未监听；没有修改滚动"
+          }
+        }
+      }
+    },
+    "Not reversed on %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 %@ 上不翻转"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
+    },
+    "Offline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在线"
+          }
+        }
+      }
+    },
+    "Offline · Last connected %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在线 · 上次连接 %@"
+          }
+        }
+      }
+    },
+    "Offline · Paired, waiting to reconnect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在线 · 保留配对，等待重连"
+          }
+        }
+      }
+    },
+    "Offline · The network is blocking the connection; restarting the router usually fixes it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在线 · 网络拦下了两台之间的连接，重启路由器通常就好"
+          }
+        }
+      }
+    },
+    "Once paired with another Mac, each shows the other’s devices, battery levels and reversing while both are on the same network." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与另一台 Mac 配对后，两台在同一网络时互相显示外设、电量和翻转状态。"
+          }
+        }
+      }
+    },
+    "Online" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在线"
+          }
+        }
+      }
+    },
+    "Online · Direct link while the network is blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在线 · 经直连，局域网暂时不通"
+          }
+        }
+      }
+    },
+    "Online · View only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在线 · 仅供查看"
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开设置"
+          }
+        }
+      }
+    },
+    "Open at Login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开"
+          }
+        }
+      }
+    },
+    "Pages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "页面"
+          }
+        }
+      }
+    },
+    "Pair" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配对"
+          }
+        }
+      }
+    },
+    "Pair with Another Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与另一台 Mac 配对"
+          }
+        }
+      }
+    },
+    "Pairing didn’t finish. If the other Mac shows it as paired, unpair it there, then try again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配对没有完成；如果另一台显示已配对，在它上面取消配对后重试"
+          }
+        }
+      }
+    },
+    "Pairing didn’t finish; try again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配对没有完成，请重试"
+          }
+        }
+      }
+    },
+    "Pair…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配对…"
+          }
+        }
+      }
+    },
+    "Password · Hidden" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密码 · 不显示"
+          }
+        }
+      }
+    },
+    "Paste" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粘贴"
+          }
+        }
+      }
+    },
+    "Playing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在播放"
+          }
+        }
+      }
+    },
+    "Process %d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "进程 %d"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出它"
+          }
+        }
+      }
+    },
+    "Quit %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出 %@"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除"
+          }
+        }
+      }
+    },
+    "Removed; agents no longer load it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已移除，agent 不再加载"
+          }
+        }
+      }
+    },
+    "Restart Listening" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新开始监听"
+          }
+        }
+      }
+    },
+    "Retransmitted %ld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重传 %ld%%"
+          }
+        }
+      }
+    },
+    "Reverse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "翻转"
+          }
+        }
+      }
+    },
+    "Reverse scrolling for %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 翻转滚动"
+          }
+        }
+      }
+    },
+    "Reversed on %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 %@ 上翻转"
+          }
+        }
+      }
+    },
+    "Reverses per device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按设备翻转"
+          }
+        }
+      }
+    },
+    "Reversing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在翻转"
+          }
+        }
+      }
+    },
+    "Reversing %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在翻转 %@"
+          }
+        }
+      }
+    },
+    "Reversing is on; unrecognized devices are left as they are" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "翻转已开；未识别的设备保持原样"
+          }
+        }
+      }
+    },
+    "Scroll Speed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "滚动速度"
+          }
+        }
+      }
+    },
+    "Scroll speed for %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 滚动速度"
+          }
+        }
+      }
+    },
+    "See another Mac’s devices and battery levels here" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在这里查看另一台 Mac 的外设和电量"
+          }
+        }
+      }
+    },
+    "Select All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全选"
+          }
+        }
+      }
+    },
+    "Sharing Between Macs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跨机共享"
+          }
+        }
+      }
+    },
+    "Show in Dock" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在程序坞显示"
+          }
+        }
+      }
+    },
+    "Show in Menu Bar" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在菜单栏显示"
+          }
+        }
+      }
+    },
+    "Signal %ld dBm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信号 %ld dBm"
+          }
+        }
+      }
+    },
+    "Snapshot from last connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次连接时的设备快照"
+          }
+        }
+      }
+    },
+    "Sound output" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "声音输出"
+          }
+        }
+      }
+    },
+    "Source Code and Licenses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "源代码与许可证"
+          }
+        }
+      }
+    },
+    "Starts on its own once allowed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许后自动开始"
+          }
+        }
+      }
+    },
+    "Strong signal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信号强"
+          }
+        }
+      }
+    },
+    "Stuck for %ld seconds." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡了 %ld 秒"
+          }
+        }
+      }
+    },
+    "Switched to call mode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切到了通话模式"
+          }
+        }
+      }
+    },
+    "The app chose this microphone itself, which Halo can’t change. Pick %@ in the app’s audio settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这个 App 自己选了它的麦克风，Halo 改不了；在 App 的音频设置里换成 %@ 即可"
+          }
+        }
+      }
+    },
+    "The direction changed again after Halo reversed it, and any of the listed apps could have done it. Try turning off their scroll settings one at a time." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 翻转后方向又被改了，列出的几个 App 都有可能。逐个关掉它们的滚动设置试试。"
+          }
+        }
+      }
+    },
+    "The numbers didn’t match; pairing cancelled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数字不一致，已取消配对"
+          }
+        }
+      }
+    },
+    "The other Mac cancelled pairing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 取消了本次配对"
+          }
+        }
+      }
+    },
+    "The other Mac unpaired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一台 Mac 取消了配对"
+          }
+        }
+      }
+    },
+    "The rule applies until Halo quits, but couldn’t be saved: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则已在本次运行生效，但保存失败：%@"
+          }
+        }
+      }
+    },
+    "The system made it the microphone; switched back to %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统把麦克风设成了它，已改回 %@"
+          }
+        }
+      }
+    },
+    "The system made it the microphone; couldn’t switch it back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统把麦克风设成了它，没能改回来"
+          }
+        }
+      }
+    },
+    "The system may use it as a microphone, which drops it to call quality. Click to keep it for music only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统可能把它当麦克风，那时音质会降为通话音质。点一下让它只放音乐"
+          }
+        }
+      }
+    },
+    "This Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本机"
+          }
+        }
+      }
+    },
+    "This Mac deletes the pairing key. The other Mac isn’t online, so unpair it there too." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这台 Mac 会删除配对密钥。另一台现在不在线，之后在它上面也取消配对。"
+          }
+        }
+      }
+    },
+    "This version of macOS lacks the HID interface; not listening, scrolling unchanged" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前系统缺少 HID 接口；未监听、未修改滚动"
+          }
+        }
+      }
+    },
+    "Try turning off scroll settings one at a time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "逐个关掉滚动设置试试"
+          }
+        }
+      }
+    },
+    "Turn off its scroll setting, or quit it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关掉它的滚动设置，或退出它"
+          }
+        }
+      }
+    },
+    "Universal Control" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用控制"
+          }
+        }
+      }
+    },
+    "Universal Control didn’t hand them back. They will return to this Mac on their own shortly." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用控制没把它们交回来，稍后会自动回到这台 Mac。"
+          }
+        }
+      }
+    },
+    "Unnamed Device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未命名设备"
+          }
+        }
+      }
+    },
+    "Unpair" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消配对"
+          }
+        }
+      }
+    },
+    "Unpair from %@?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消与 %@ 的配对？"
+          }
+        }
+      }
+    },
+    "Unpair…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消配对…"
+          }
+        }
+      }
+    },
+    "Use Halo to make my mouse wheel faster" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 Halo 把鼠标滚轮调快一点"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本 %@"
+          }
+        }
+      }
+    },
+    "Virtual/remote pointing device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "虚拟/远程指针设备"
+          }
+        }
+      }
+    },
+    "Virtual/remote trackpad" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "虚拟/远程触控板"
+          }
+        }
+      }
+    },
+    "Waiting for Match on the other Mac…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "等另一台 Mac 也点「一致」…"
+          }
+        }
+      }
+    },
+    "Waiting for the other Mac to turn this on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "等另一台也打开"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意"
+          }
+        }
+      }
+    },
+    "Was reversing at last connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次连接时在翻转"
+          }
+        }
+      }
+    },
+    "Watches scrolling, doesn’t change it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只看滚动，不修改"
+          }
+        }
+      }
+    },
+    "Weak signal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信号弱"
+          }
+        }
+      }
+    },
+    "Bluetooth link struggled %ld times in 10 minutes. Try disconnecting and reconnecting it" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 分钟内 %ld 次蓝牙连接不稳，可以先断开再重新连接"
+          }
+        }
+      }
+    },
+    "Bluetooth link is struggling; sound may cut out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝牙连接不稳，声音可能断续"
+          }
+        }
+      }
+    },
+    "When Universal Control moves the pointer to the other Mac, text or an image you copied here goes ahead of you, ready for ⌘V there. It’s kept in memory only, never written to disk." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用控制把指针移到另一台时，你在这台拷贝过的文字或图片会先送过去，在那台按 ⌘V 就能粘贴。只放在内存里，不写入磁盘。"
+          }
+        }
+      }
+    },
+    "Window" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "窗口"
+          }
+        }
+      }
+    },
+    "Wi‑Fi %@ channel %ld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wi‑Fi %@ 信道 %ld"
+          }
+        }
+      }
+    },
+    "link.json can’t be written, so pairing isn’t possible for now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "link.json 无法写入，暂时不能配对"
+          }
+        }
+      }
+    },
+    "off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关"
+          }
+        }
+      }
+    },
+    "on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开"
+          }
+        }
+      }
+    },
+    "turn off Calls from iPhone in FaceTime settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可在 FaceTime 设置里关闭「来自 iPhone 的通话」"
+          }
+        }
+      }
+    },
+    "Available to new agent sessions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新的智能体会话可使用"
+          }
+        }
+      }
+    },
+    "Example Requests" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请求示例"
+          }
+        }
+      }
+    },
+    "Halo pauses while another scroll-reversing app is running and resumes when it quits." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他滚动翻转应用运行时，Halo 会暂停；退出该应用后自动恢复。"
+          }
+        }
+      }
+    },
+    "Halo restarts when its language changes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改语言后，Halo 会重新打开。"
+          }
+        }
+      }
+    },
+    "Keep Halo in the Dock after Settings closes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭设置后，仍在程序坞显示 Halo。"
+          }
+        }
+      }
+    },
+    "Open Halo to show its settings when the menu bar icon is hidden." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "菜单栏图标隐藏时，打开 Halo 即可显示设置。"
+          }
+        }
+      }
+    },
+    "Other Scroll Apps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他滚动应用"
+          }
+        }
+      }
+    },
+    "Privacy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私"
+          }
+        }
+      }
+    },
+    "Read diagnostics and adjust settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "读取诊断并调整设置"
+          }
+        }
+      }
+    },
+    "Reverse changes vertical scrolling. Speed applies to mouse wheels. Settings are saved for each device." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "翻转改变纵向滚动方向，速度仅影响鼠标滚轮。每个设备的设置都会保留。"
+          }
+        }
+      }
+    },
+    "Share Clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "共享剪贴板"
+          }
+        }
+      }
+    },
+    "Sync Scrolling Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步滚动设置"
+          }
+        }
+      }
+    },
+    "Sync scroll direction and wheel speed between these Macs." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在这两台 Mac 间同步滚动方向和滚轮速度。"
+          }
+        }
+      }
+    },
+    "No keystrokes, screen content or microphone audio is recorded. Halo never saves shared clipboard content to disk." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不记录按键、屏幕内容或麦克风音频。Halo 不将共享剪贴板内容存入磁盘。"
+          }
+        }
+      }
+    },
+    "The pairing with %@ and its key in the keychain (deleted, not moved to the Trash)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与 %@ 的配对，以及它在钥匙串里的密钥（直接删除，不进废纸篓）"
+          }
+        }
+      }
+    },
+    "The app: remove it afterwards with brew uninstall --cask halo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App 本身：之后用 brew uninstall --cask halo 删除"
+          }
+        }
+      }
+    },
+    "Uninstall Halo?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卸载 Halo？"
+          }
+        }
+      }
+    },
+    "Halo removes all of this, then quits. Files go to the Trash." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 会移除以下全部内容，然后退出。文件会移到废纸篓。"
+          }
+        }
+      }
+    },
+    "Uninstall" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卸载"
+          }
+        }
+      }
+    },
+    "Uninstall…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卸载…"
+          }
+        }
+      }
+    },
+    "Uninstall Halo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卸载 Halo"
+          }
+        }
+      }
+    },
+    "Removes everything Halo put on this Mac" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除 Halo 在这台 Mac 上放的所有东西"
+          }
+        }
+      }
+    },
+    "macOS keeps its own lists in Privacy & Security and Notifications; Halo opens Privacy & Security so you can remove Halo there too." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 在「隐私与安全性」和「通知」里另有名单；Halo 会打开「隐私与安全性」，你可以把 Halo 也从中移除。"
+          }
+        }
+      }
+    },
+    "%@ is offline, so it keeps its side: unpair it there too" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 不在线，它那边的配对会保留：请在那台上也解除配对"
+          }
+        }
+      }
+    },
+    "Halo couldn’t remove everything" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo 没能全部移除"
+          }
+        }
+      }
+    },
+    "These are still here; remove them in Finder or System Settings:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以下内容还在，请在访达或系统设置里移除："
+          }
+        }
+      }
+    },
+    "Copy the version, for a bug report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拷贝版本号，反馈问题时用"
+          }
+        }
+      }
+    },
+    "Send Feedback…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "反馈…"
+          }
+        }
+      }
+    },
+    "Report on GitHub…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 GitHub 上报告问题…"
+          }
+        }
+      }
+    },
+    "Email %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发邮件到 %@"
+          }
+        }
+      }
+    },
+    "What happened:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发生了什么："
+          }
+        }
+      }
+    },
+    "Diagnostics summary, if you like (Settings → Diagnostics → Copy):" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断摘要（可选，设置 → 诊断 → 拷贝）："
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
