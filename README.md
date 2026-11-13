@@ -1,8 +1,10 @@
-<p align="center"><img src="docs/icon.png" width="72" height="72" alt="Halo"></p>
+<p align="center"><img src="docs/icon.png" width="72" height="72" alt="Halo for Mac"></p>
 
 <h1 align="center">Halo</h1>
 
 <p align="center">Everything you connect, looked after.</p>
+
+<p align="center"><strong>Halo for Mac</strong> is a free, open-source menu bar app. Reverse your mouse while your trackpad stays natural, see your peripherals’ batteries, and keep scrolling settings and your clipboard in step across two Macs, from the menu bar or from your AI agent.</p>
 
 <p align="center"><code>brew install --cask bayesianhunter/tap/halo</code></p>
 
@@ -118,6 +120,32 @@ Run halo --diagnostics and show me the devices before changing any settings.</co
 <p><strong>Settings → General → Uninstall Halo…</strong> lists everything Halo has put on your Mac, then takes it all away: it unpairs (telling the other Mac if it’s connected), deletes the pairing key, turns off Open at Login, removes its Agent Skill links, moves its files and the app to the Trash, and quits. Anything it couldn’t remove, it tells you. macOS keeps its own lists in Privacy &amp; Security and Notifications until you remove Halo there, so Halo opens Privacy &amp; Security on its way out.</p>
 
 <p>Installed with Homebrew? Uninstall in Halo, then run <code>brew uninstall --cask halo</code>. <code>halo --uninstall</code> prints the same list without removing anything.</p>
+
+<h2 id="faq">FAQ</h2>
+
+<h3>How do I reverse mouse scrolling but keep the trackpad natural on a Mac?</h3>
+
+<p>macOS has one Natural scrolling setting, shared by every mouse and trackpad. Halo sets each device separately: turn on <strong>Reverse</strong> for your mouse and leave the trackpad unchanged.</p>
+
+<h3>How do I keep different scroll directions for my mouse and trackpad with Universal Control?</h3>
+
+<p>With Universal Control, the mouse and trackpad from your other Mac arrive as separate devices. Halo recognizes them and gives each its own rule, so the mouse stays reversed and the trackpad natural on whichever Mac the pointer is on. Pair the two Macs to keep these settings in sync.</p>
+
+<h3>Why does my Bluetooth speaker suddenly sound bad on my Mac?</h3>
+
+<p>A Bluetooth speaker used as a microphone drops to call quality for as long as anything records. macOS can make a speaker the microphone when it reconnects; Halo switches the input back to the Mac’s own microphone. If an app picks the speaker’s microphone itself, Halo can’t change that, but it tells you, naming the app when it can.</p>
+
+<h3>How can I see the battery of my mouse, keyboard and trackpad on a Mac?</h3>
+
+<p>Halo shows the charge of mice, keyboards, trackpads and Bluetooth audio devices that report a battery, in its menu. It also reads the standard Bluetooth Low Energy battery of mice and keyboards, such as the Logitech MX Master 2S we test with. For devices that report fine-grained levels, it estimates the time left after a day of readings.</p>
+
+<h3>Can my AI agent check or change my peripherals?</h3>
+
+<p>Yes. Halo includes an Agent Skill and a <code>halo</code> command. Your agent can read live diagnostics and 30 days of events, run Bluetooth audio and connection checks, and change scrolling direction, wheel speed and the speaker microphone rule. Halo shows a notification for every change.</p>
+
+<h3>Which Macs does Halo run on?</h3>
+
+<p>macOS 26 or later on Apple silicon. Halo is free and open source under GPL-3.0.</p>
 
 <h2 id="feedback">Feedback</h2>
 
