@@ -44,6 +44,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let classic = ClassicBluetooth()
     /// Open menu rows by lower-cased device name, so signals that arrive later update them in place.
     var rowInfo: [String: DeviceRowView] = [:]
+    /// Ids two rows of the open menu share (two devices of one name): `rowInfo` holds only the last, so these are
+    /// left as the menu opened.
+    var sharedRowIDs: Set<String> = []
     let pages = NSTabView()
     let pagePicker = PillPicker(titles: [L("Devices"), L("General"), L("Diagnostics"), L("About")])
     let devicesStack = NSStackView()
@@ -532,7 +535,7 @@ extension AppDelegate {
         // borrowed devices would then advertise the remembered row as ours, echoing the peer's trackpad back to it.
         let devices = (rows.pointing + rows.others).filter { !$0.lent }.map { spec in
             LinkDevice(name: spec.title, kind: LinkDevice.Kind(symbol: spec.symbol), battery: spec.battery?.percent,
-                       reversed: spec.isOn == true, pointing: spec.isOn != nil, builtIn: spec.builtIn)
+                       charging: spec.battery?.charging == true, reversed: spec.isOn == true, pointing: spec.isOn != nil, builtIn: spec.builtIn)
         }
         // One setting per device: a built-in trackpad lists several services. Sorted first, so the same state always
         // makes the same bytes and is not sent again.
@@ -593,7 +596,7 @@ extension AppDelegate {
             // Offline, the section already says it is a snapshot; a row only notes that it was reversing.
             let spec = RowSpec(id: "#peer-\(index)", symbol: device.kind.symbol, title: title,
                                facts: device.reversed ? [online ? L("Reversing") : L("Was reversing at last connection")] : [],
-                               battery: device.battery.map { Battery(name: title, serial: "", percent: $0) }, builtIn: device.builtIn)
+                               battery: device.battery.map { Battery(name: title, serial: "", percent: $0, charging: device.charging) }, builtIn: device.builtIn)
             return (spec, online && remote.active && device.reversed)
         }
         var note: String?

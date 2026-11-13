@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.2 (2026-11-13)
+
+- A device plugged in to charge while the menu is open shows its charging plug at once, instead of at the next
+  opening.
+- A low battery is red only until it is plugged in, as on iOS; while charging, its percentage is the usual grey.
+- The paired Mac shows when the other Mac's devices are charging.
+
 ## 0.8.0 (2026-11-12)
 
 First public release.

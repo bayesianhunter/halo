@@ -47,6 +47,8 @@ public struct Battery: Equatable {
     }
 
     public var isLow: Bool { percent <= Battery.lowPercent }
+    /// Low and not on a cable: shown in red, as iOS does. One that is charging is already being seen to.
+    public var needsCharge: Bool { isLow && !charging }
 
     /// The device to show charging in the menu bar: the emptiest one on a cable.
     public static func charging(_ batteries: [Battery]) -> Battery? {

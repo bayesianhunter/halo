@@ -26,6 +26,7 @@ extension AppDelegate {
     func menuDidClose(_ menu: NSMenu) {
         stopMenuClickMonitors()
         rowInfo = [:]
+        sharedRowIDs = []
         menuOpen = false
         updateIconVisibility()
         showNextAlert()
@@ -191,6 +192,7 @@ extension AppDelegate {
         guard force || !menuOpen else { return }
         menu.removeAllItems()
         rowInfo = [:]
+        sharedRowIDs = []
         let groups = deviceGroups()
         let header = NSMenuItem()
         header.view = MenuHeaderView(title: Brand.name, status: scrollingSummary(groups.allPointing), state: headerState(groups.allPointing),
@@ -404,19 +406,37 @@ extension AppDelegate {
         let view = rowView(spec)
         item.view = view
         menu.addItem(item)
+        if rowInfo[spec.id] != nil { sharedRowIDs.insert(spec.id) }
         rowInfo[spec.id] = view
     }
 
     func rowView(_ spec: RowSpec) -> DeviceRowView {
-        let soon = spec.timeLeftSoon ? [spec.timeLeft?.short].compactMap { $0 } : []
-        let view = DeviceRowView(symbol: spec.symbol, title: spec.title, facts: spec.facts + soon,
+        let view = DeviceRowView(symbol: spec.symbol, title: spec.title, facts: spec.facts + [Self.timeLeftFact(spec)].compactMap { $0 },
                                  battery: spec.battery, timeLeft: spec.timeLeft?.short, rssi: spec.rssi, isOn: spec.isOn,
                                  active: (spec.isOn == true && engine.policy.enabled) || spec.lit,
                                  dimmed: !engine.policy.enabled,
                                  toggleLabel: L("Reverse scrolling for %@", spec.title), mic: spec.mic)
+        view.timeLeftFact = Self.timeLeftFact(spec)
         view.onToggle = spec.onToggle
         view.onClick = spec.onClick
         return view
+    }
+
+    /// The time left, on the detail line under the name, once it is soon.
+    static func timeLeftFact(_ spec: RowSpec) -> String? {
+        spec.timeLeftSoon ? spec.timeLeft?.short : nil
+    }
+
+    /// The rows of an open menu take new charges in place, since the menu is not rebuilt while open (`rebuildMenu`):
+    /// a cable plugged in while looking shows at once, and so does what the opening's own battery read finds. Rows
+    /// are found by id, which is the device's name; an id two rows shared at opening is left alone (`sharedRowIDs`).
+    private func updateOpenRows() {
+        guard menuOpen, !rowInfo.isEmpty else { return }
+        let groups = deviceGroups()
+        let lent = groups.peer?.rows.map(\.0).filter(\.lent) ?? []
+        for spec in groups.mine + lent + groups.universalControl where !sharedRowIDs.contains(spec.id) {
+            rowInfo[spec.id]?.update(battery: spec.battery, timeLeft: spec.timeLeft?.short, timeLeftFact: Self.timeLeftFact(spec))
+        }
     }
 
     /// Why nothing is reversed right now, when that is the case.
@@ -452,6 +472,7 @@ extension AppDelegate {
         // The arc says how much charge. A device running low keeps the mark in the menu bar's own colour and turns only
         // the dot red: something to see to. A charging one colours the whole mark by its charge: something under way.
         // No number: the menu has it.
+        updateOpenRows()
         let batteries = engine.batteries + audioBatteries(gone: gone)
         let button = statusItem.button
         button?.title = ""

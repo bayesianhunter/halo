@@ -154,6 +154,12 @@ final class HaloTests: XCTestCase {
         XCTAssertEqual(catalog.revision, revision)
     }
 
+    func testLowBatteryIsRedOnlyOffTheCable() {
+        XCTAssertTrue(Battery(name: "Keyboard", serial: "", percent: 20).needsCharge)
+        XCTAssertFalse(Battery(name: "Keyboard", serial: "", percent: 20, charging: true).needsCharge)
+        XCTAssertFalse(Battery(name: "Keyboard", serial: "", percent: 21).needsCharge)
+    }
+
     func testBatteryParsingAndLowestLowCharge() {
         XCTAssertNil(Battery(properties: ["Product": "No charge"]))
         XCTAssertNil(Battery(properties: ["percent": NSNumber(value: 140)]))

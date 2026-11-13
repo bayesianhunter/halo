@@ -90,6 +90,8 @@ final class DeviceRowView: NSView {
     private let bars = NSImageView()
     private let charge = NSTextField(labelWithString: "")
     private let glyph = NSImageView()
+    private let trailing = NSStackView()
+    private var plug: PlugView?
     private var tile: RoundTile?
     let toggle: MenuSwitch?
     var onToggle: ((Bool) -> Void)?
@@ -105,8 +107,6 @@ final class DeviceRowView: NSView {
         title.font = .menuFont(ofSize: 13)
         // Cut in the middle: the owner at the start and the model at the end are what tell two devices apart.
         title.lineBreakMode = .byTruncatingMiddle
-        // Not on the row itself: its tooltip would also be its accessibility help, read after the label that says it.
-        title.toolTip = [text, timeLeft].compactMap { $0 }.joined(separator: "\n")
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         detail.stringValue = facts.joined(separator: " · ")
         detail.font = .systemFont(ofSize: 11)
@@ -119,26 +119,14 @@ final class DeviceRowView: NSView {
         labels.alignment = .leading
         labels.spacing = 1
         bars.contentTintColor = .secondaryLabelColor
-        // Right side, as in the system menu: charge as "62%" then the battery glyph, red when low.
+        // Right side, as in the system menu: charge as "62%" then the battery glyph, red when low and not charging.
         charge.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
-        if let battery {
-            let color: NSColor = battery.isLow ? .systemRed : .secondaryLabelColor
-            charge.stringValue = "\(battery.percent)%"
-            charge.textColor = color
-            glyph.image = NSImage(systemSymbolName: Self.batterySymbol(battery.percent), accessibilityDescription: nil)
-            glyph.symbolConfiguration = .init(pointSize: 13, weight: .regular)
-            glyph.contentTintColor = battery.charging ? .systemGreen : color
-            glyph.setAccessibilityElement(false)
-            charge.toolTip = timeLeft
-            glyph.toolTip = timeLeft
-        }
-        // Charging: a plug in the battery's terminal, with the charge trickling in along its cable.
-        let plug = battery?.charging == true ? PlugView(connector: battery?.connector) : nil
-        let trailing = NSStackView(views: [bars, charge, glyph] + [plug].compactMap { $0 })
+        glyph.symbolConfiguration = .init(pointSize: 13, weight: .regular)
+        glyph.setAccessibilityElement(false)
+        [bars, charge, glyph].forEach(trailing.addArrangedSubview)
         trailing.spacing = 6
         trailing.setCustomSpacing(0, after: glyph)
-        charge.isHidden = battery == nil
-        glyph.isHidden = battery == nil
+        show(battery, timeLeft: timeLeft)
         if let accessory {
             let status = NSTextField(labelWithString: accessory)
             status.font = .systemFont(ofSize: 11)
@@ -239,14 +227,67 @@ final class DeviceRowView: NSView {
         setAccessibilityElement(true)
         setAccessibilityRole(.group)
         self.facts = facts
-        spokenBase = { Self.spoken([text] + $0 + [$0.contains { $0 == timeLeft } ? nil : timeLeft, accessory], battery: battery) }
+        spokenBase = { [unowned self] facts in
+            Self.spoken([text] + facts + [facts.contains { $0 == self.timeLeft } ? nil : self.timeLeft, accessory], battery: self.battery)
+        }
         accessibilityBase = spokenBase(facts)
+        update(rssi: rssi)
+    }
+
+    /// The charge and how long it lasts, with a plug in the battery's terminal while charging.
+    private func show(_ battery: Battery?, timeLeft: String?) {
+        self.battery = battery
+        self.timeLeft = timeLeft
+        if let battery {
+            let color: NSColor = battery.needsCharge ? .systemRed : .secondaryLabelColor
+            charge.stringValue = "\(battery.percent)%"
+            charge.textColor = color
+            glyph.image = NSImage(systemSymbolName: Self.batterySymbol(battery.percent), accessibilityDescription: nil)
+            glyph.contentTintColor = battery.charging ? .systemGreen : color
+        }
+        charge.isHidden = battery == nil
+        glyph.isHidden = battery == nil
+        charge.toolTip = timeLeft
+        glyph.toolTip = timeLeft
+        // Not on the row itself: its tooltip would also be its accessibility help, read after the label that says it.
+        title.toolTip = [title.stringValue, timeLeft].compactMap { $0 }.joined(separator: "\n")
+        // Charging: a plug in the battery's terminal, with the charge trickling in along its cable.
+        if let plug, battery?.charging != true || plug.connector != battery?.connector {
+            trailing.removeArrangedSubview(plug)
+            plug.removeFromSuperview()
+            self.plug = nil
+        }
+        if plug == nil, let battery, battery.charging, let index = trailing.arrangedSubviews.firstIndex(of: glyph) {
+            let plug = PlugView(connector: battery.connector)
+            trailing.insertArrangedSubview(plug, at: index + 1)
+            self.plug = plug
+        }
+    }
+
+    /// The time left as the detail line shows it, when it is soon (`RowSpec.timeLeftSoon`); the row's other facts
+    /// stay as the menu opened with them.
+    var timeLeftFact: String?
+
+    /// An open menu is not rebuilt (`rebuildMenu`), so a row takes a new charge in place: a cable plugged in while
+    /// the menu is open shows its plug at once. Only the charge and the time left change; the rest of the row stays
+    /// as it opened, as the menu always has.
+    func update(battery: Battery?, timeLeft: String?, timeLeftFact newFact: String?) {
+        guard battery != self.battery || timeLeft != self.timeLeft || newFact != timeLeftFact else { return }
+        show(battery, timeLeft: timeLeft)
+        let shown = facts.filter { $0 != timeLeftFact } + [newFact].compactMap { $0 }
+        timeLeftFact = newFact
+        facts = shown
+        detail.stringValue = shown.joined(separator: " · ")
+        detail.isHidden = shown.isEmpty
+        accessibilityBase = spokenBase(shown)
         update(rssi: rssi)
     }
 
     private var accessibilityBase = ""
     private var facts: [String] = []
     private var rssi: Int?
+    private var battery: Battery?
+    private var timeLeft: String?
     private var spokenBase: ([String]) -> String = { _ in "" }
 
     /// How VoiceOver reads a device row, in the menu and in the window alike: name, facts, then the charge.
@@ -324,14 +365,14 @@ final class DeviceRowView: NSView {
         }
     }
 
-    /// A rounded track filled to the charge: the label colour normally, red when low. Drawn when shown,
+    /// A rounded track filled to the charge: the label colour normally, red when low and not charging. Drawn when shown,
     /// so it follows light and dark.
     static func chargeBar(_ battery: Battery, width: CGFloat) -> NSImage {
         let size = NSSize(width: width, height: 4)
         let image = NSImage(size: size, flipped: false) { rect in
             NSColor.labelColor.withAlphaComponent(0.14).setFill()
             NSBezierPath(roundedRect: rect, xRadius: 2, yRadius: 2).fill()
-            (battery.isLow ? NSColor.systemRed : NSColor.labelColor.withAlphaComponent(0.75)).setFill()
+            (battery.needsCharge ? NSColor.systemRed : NSColor.labelColor.withAlphaComponent(0.75)).setFill()
             let filled = NSRect(x: 0, y: 0, width: max(size.height, rect.width * CGFloat(battery.percent) / 100), height: rect.height)
             NSBezierPath(roundedRect: filled, xRadius: 2, yRadius: 2).fill()
             return true
@@ -359,7 +400,7 @@ final class PlugView: NSView {
     private let body = CAShapeLayer()
     private let cable = CAShapeLayer()
     private let current = CAShapeLayer()
-    private let connector: Battery.Connector?
+    let connector: Battery.Connector?
 
     init(connector: Battery.Connector?) {
         self.connector = connector

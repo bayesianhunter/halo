@@ -214,15 +214,18 @@ public struct LinkDevice: Codable, Equatable {
     public var name: String
     public var kind: Kind
     public var battery: Int?
+    /// On a cable. Absent from a Halo before 0.8.2, which reads as not charging.
+    public var charging: Bool
     public var reversed: Bool
     public var pointing: Bool
     /// Part of the sender itself (its built-in trackpad), so the receiver names it in its own language.
     public var builtIn: Bool
 
-    public init(name: String, kind: Kind, battery: Int?, reversed: Bool, pointing: Bool, builtIn: Bool = false) {
+    public init(name: String, kind: Kind, battery: Int?, charging: Bool = false, reversed: Bool, pointing: Bool, builtIn: Bool = false) {
         self.name = name
         self.kind = kind
         self.battery = battery
+        self.charging = battery != nil && charging
         self.reversed = reversed
         self.pointing = pointing
         self.builtIn = builtIn
@@ -233,6 +236,7 @@ public struct LinkDevice: Codable, Equatable {
         name = LinkText.clean(try c.decode(String.self, forKey: .name))
         kind = try c.decodeIfPresent(Kind.self, forKey: .kind) ?? .other
         battery = (try? c.decodeIfPresent(Int.self, forKey: .battery)).flatMap { $0 }.flatMap { (0...100).contains($0) ? $0 : nil }
+        charging = battery != nil && ((try? c.decodeIfPresent(Bool.self, forKey: .charging)).flatMap { $0 } ?? false)
         pointing = try c.decodeIfPresent(Bool.self, forKey: .pointing) ?? false
         let reversed = try c.decodeIfPresent(Bool.self, forKey: .reversed) ?? false
         self.reversed = pointing && reversed

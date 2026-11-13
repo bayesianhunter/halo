@@ -8,6 +8,16 @@ final class LinkTests: XCTestCase {
     let mouse = LinkDevice(name: "MX Master", kind: .mouse, battery: 80, reversed: true, pointing: true)
     var snapshot: LinkSnapshot { LinkSnapshot(computer: "Studio", active: true, devices: [mouse]) }
 
+    func testChargingTravelsAndOldPeersReadAsNotCharging() throws {
+        let keyboard = LinkDevice(name: "Magic Keyboard", kind: .keyboard, battery: 15, charging: true, reversed: false, pointing: false)
+        let back = try JSONDecoder().decode(LinkDevice.self, from: JSONEncoder().encode(keyboard))
+        XCTAssertTrue(back.charging)
+        let old = #"{"name":"Magic Keyboard","kind":"keyboard","battery":15,"reversed":false,"pointing":false,"builtIn":false}"#
+        XCTAssertFalse(try JSONDecoder().decode(LinkDevice.self, from: Data(old.utf8)).charging)
+        let noBattery = #"{"name":"Mouse","kind":"mouse","charging":true,"reversed":false,"pointing":true}"#
+        XCTAssertFalse(try JSONDecoder().decode(LinkDevice.self, from: Data(noBattery.utf8)).charging)
+    }
+
     func hex(_ data: Data) -> String { data.map { String(format: "%02x", $0) }.joined() }
 
     func testBothSidesDeriveTheSameLongTermKey() throws {

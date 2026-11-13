@@ -247,7 +247,6 @@ final class Engine {
         let merged = Battery.merge(registryBatteries, ble.map { Array($0.levels.values) } ?? [])
         guard merged != batteries else { return }
         batteries = merged
-        onBatteriesChanged?()
         // Registry readings carry the serial; the rest came over Bluetooth LE.
         let fromRegistry = Set(registryBatteries.map { $0.name.lowercased() })
         let readings = merged.map { battery in
@@ -255,6 +254,8 @@ final class Engine {
                                   source: fromRegistry.contains(battery.name.lowercased()) ? "registry" : "ble")
         }
         batteryLedger.update(readings).forEach(Events.record)
+        // After the readings are logged: the battery history they feed is what the time-left estimates are drawn from.
+        onBatteriesChanged?()
     }
 
     /// Pointing devices the person would recognise, attached here or lent by the other Mac; Universal Control's own
