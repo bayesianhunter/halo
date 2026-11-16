@@ -7,6 +7,7 @@ import HaloHID
 extension AppDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         menuOpen = true
+        menuOpening += 1
         // While a dialog waits for an answer (an update check's, say), AppKit greys out Settings and Quit. Behind other
         // apps' windows nothing says why, so bring the dialog forward, without activating Halo, which could close the
         // menu.
@@ -27,6 +28,10 @@ extension AppDelegate {
         stopMenuClickMonitors()
         rowInfo = [:]
         sharedRowIDs = []
+        menuDeviceItems = [:]
+        menuLocalItems = []
+        menuLocalHeading = nil
+        menuRowsHeld = false
         menuOpen = false
         updateIconVisibility()
         showNextAlert()
@@ -38,10 +43,13 @@ extension AppDelegate {
         stopMenuClickMonitors()
         guard menuOpen else { return }
         let clicks: NSEvent.EventTypeMask = [.leftMouseDown, .rightMouseDown, .otherMouseDown]
-        if let local = NSEvent.addLocalMonitorForEvents(matching: clicks.union(.keyDown), handler: { [weak self] event in
+        let releases: NSEvent.EventTypeMask = [.leftMouseUp, .rightMouseUp, .otherMouseUp]
+        if let local = NSEvent.addLocalMonitorForEvents(matching: clicks.union(releases).union(.keyDown), handler: { [weak self] event in
             guard let self, self.menuOpen else { return event }
             if event.type == .keyDown {
                 if event.keyCode == 53 { self.menu.cancelTracking(); return nil }
+            } else if releases.contains(NSEvent.EventTypeMask(rawValue: 1 << event.type.rawValue)) {
+                if self.menuRowsHeld { self.refreshOpenMenu() }
             } else { self.closeMenuIfOutside(event) }
             return event
         }) { menuClickMonitors.append(local) }
@@ -187,15 +195,17 @@ extension AppDelegate {
     /// Menu, in the system Bluetooth menu's shape: Halo and what it is reversing, pointing devices with their own reverse switch,
     /// other connected peripherals, then settings.
     func rebuildMenu(force: Bool = false) {
-        // Replacing custom views during AppKit's tracking can detach the window from the tracked items. Keep this
-        // opening stable (controls update themselves); the next opening takes a fresh snapshot of all sections.
-        guard force || !menuOpen else { return }
+        // Replacing all custom views during AppKit's tracking can detach tracked controls. Reconcile local device
+        // membership in place while open; section layout is rebuilt at the next opening.
+        guard force || !menuOpen else { refreshOpenMenu(); return }
         menu.removeAllItems()
         rowInfo = [:]
         sharedRowIDs = []
+        menuDeviceItems = [:]
+        menuLocalItems = []
         let groups = deviceGroups()
         let header = NSMenuItem()
-        header.view = MenuHeaderView(title: Brand.name, status: scrollingSummary(groups.allPointing), state: headerState(groups.allPointing),
+        header.view = MenuHeaderView(title: Brand.name, status: scrollingSummary(groups.allPointing),
                                      version: "\(version) (\(build))", versionDetail: "· " + DiagnosticsExport.macOSVersion)
         menu.addItem(header)
         if engine.tap == nil, !engine.trusted {
@@ -215,7 +225,11 @@ extension AppDelegate {
         let otherMac = link.peer != nil || engine.universalControlConnected
         addHeader(otherMac ? link.computerName : "", identity: otherMac ? L("This Mac") : nil,
                   trailing: groups.minePointing.isEmpty ? nil : L("Reverse"))
-        groups.mine.forEach(addRow)
+        menuLocalHeading = menu.items.last
+        for spec in groups.mine {
+            addRow(spec)
+            menuLocalItems.append((spec.id, menu.items.last!))
+        }
         if groups.allPointing.isEmpty { addNote(L("No mouse or trackpad found yet")) }
         if let peer = link.peer {
             let lent = groups.peer?.rows.map(\.0).filter(\.lent) ?? []
@@ -264,9 +278,13 @@ extension AppDelegate {
         }
         menu.addItem(.separator())
         if let version = updates.waiting {
+            // A plain menu line marked with a blue up arrow, matching the update point. Clicking opens
+            // Sparkle's window: what's new, and Install.
             let item = NSMenuItem(title: L("%@ %@ Available…", Brand.name, version), action: #selector(Updates.checkForUpdates(_:)), keyEquivalent: "")
-            menu.addItem(item)
             item.target = updates
+            item.image = NSImage(systemSymbolName: "arrow.up.circle", accessibilityDescription: nil)?
+                .withSymbolConfiguration(.init(paletteColors: [.systemBlue]))
+            menu.addItem(item)
         }
         menu.addItem(withTitle: L("%@ Settings…", Brand.name), action: #selector(showWindow), keyEquivalent: ",")
         menu.addItem(withTitle: L("Quit %@", Brand.name), action: #selector(quit), keyEquivalent: "q")
@@ -285,12 +303,6 @@ extension AppDelegate {
         item.view = MenuNoteView(text: text)
         item.isEnabled = false
         menu.addItem(item)
-    }
-
-    /// The header's dot: orange when `menuNote` explains why nothing is reversed, green while something is.
-    func headerState(_ pointing: [RowSpec]) -> MenuHeaderView.State {
-        if menuNote != nil { return .attention }
-        return engine.policy.enabled && pointing.contains { $0.isOn == true } ? .working : .idle
     }
 
     /// The local rules, not the cached peer snapshot, determine this status.
@@ -405,9 +417,65 @@ extension AppDelegate {
         let item = NSMenuItem()
         let view = rowView(spec)
         item.view = view
+        menuDeviceItems[item] = spec.id
         menu.addItem(item)
         if rowInfo[spec.id] != nil { sharedRowIDs.insert(spec.id) }
         rowInfo[spec.id] = view
+    }
+
+    /// Event driven, in the menu's tracking run loop too. Never replace surviving items or interrupt a held switch.
+    func refreshOpenMenu() {
+        guard menuOpen, !menuRowsQueued else { return }
+        menuRowsQueued = true
+        RunLoop.main.perform(inModes: [.common]) { [weak self] in
+            guard let self else { return }
+            self.menuRowsQueued = false
+            guard self.menuOpen else { return }
+            guard NSEvent.pressedMouseButtons == 0 else { self.menuRowsHeld = true; return }
+            self.menuRowsHeld = false
+            self.reconcileLocalMenuRows()
+            self.updateOpenRows()
+        }
+    }
+
+    private func reconcileLocalMenuRows() {
+        guard let heading = menuLocalHeading, menu.items.contains(heading) else { return }
+        let desired = deviceGroups().mine
+        var remaining = menuLocalItems
+        // Match occurrences, not just names: two equally named devices must keep two independent controls.
+        var next: [(id: String, item: NSMenuItem?)] = desired.map { spec in
+            guard let index = remaining.firstIndex(where: { $0.id == spec.id }) else { return (spec.id, nil) }
+            return (spec.id, remaining.remove(at: index).item)
+        }
+        for old in remaining {
+            menu.removeItem(old.item)
+            menuDeviceItems.removeValue(forKey: old.item)
+        }
+        var changed = !remaining.isEmpty
+        for index in next.indices where next[index].item == nil {
+            let spec = desired[index]
+            let item = NSMenuItem()
+            item.view = rowView(spec)
+            menuDeviceItems[item] = spec.id
+            // Insert before the next surviving row; existing controls never detach or move.
+            let following = next.dropFirst(index + 1).compactMap(\.item).first
+            let position = following.map { menu.index(of: $0) }
+                ?? next[..<index].compactMap(\.item).last.map { menu.index(of: $0) + 1 }
+                ?? (menu.index(of: heading) + 1)
+            menu.insertItem(item, at: position)
+            next[index].item = item
+            changed = true
+        }
+        menuLocalItems = next.compactMap { entry in entry.item.map { (entry.id, $0) } }
+        guard changed else { return }
+        rowInfo = [:]
+        sharedRowIDs = []
+        for item in menu.items {
+            guard let id = menuDeviceItems[item], let view = item.view as? DeviceRowView else { continue }
+            if rowInfo[id] != nil { sharedRowIDs.insert(id) }
+            rowInfo[id] = view
+        }
+        menu.update()
     }
 
     func rowView(_ spec: RowSpec) -> DeviceRowView {
@@ -436,6 +504,10 @@ extension AppDelegate {
         let lent = groups.peer?.rows.map(\.0).filter(\.lent) ?? []
         for spec in groups.mine + lent + groups.universalControl where !sharedRowIDs.contains(spec.id) {
             rowInfo[spec.id]?.update(battery: spec.battery, timeLeft: spec.timeLeft?.short, timeLeftFact: Self.timeLeftFact(spec))
+            rowInfo[spec.id]?.update(facts: spec.facts + [Self.timeLeftFact(spec)].compactMap { $0 },
+                                     active: (spec.isOn == true && engine.policy.enabled) || spec.lit, mic: spec.mic)
+            // An output row that was current at opening becomes selectable when sound moves elsewhere.
+            rowInfo[spec.id]?.onClick = spec.onClick
         }
     }
 
@@ -467,34 +539,44 @@ extension AppDelegate {
         }
     }
 
-    /// A low or charging device turns the ring into its charge; otherwise the plain mark.
+    /// Low and charging devices use an arc; full on a cable uses the normal ring and a green point.
     func updateBatteryUI(gone: String? = nil) {
-        // The arc says how much charge. A device running low keeps the mark in the menu bar's own colour and turns only
-        // the dot red: something to see to. A charging one colours the whole mark by its charge: something under way.
-        // No number: the menu has it.
+        // The ring's arc says how much charge; red needs attention, green is already charging. An update colours
+        // only the point blue, independently of the battery. No number beside the mark: the menu has it.
         updateOpenRows()
         let batteries = engine.batteries + audioBatteries(gone: gone)
         let button = statusItem.button
         button?.title = ""
         button?.imagePosition = .imageOnly
-        if let charging = Battery.charging(batteries) {
-            showDot(nil)
-            button?.image = StatusIcon.make(level: Double(charging.percent) / 100, tint: StatusIcon.color(charging: charging.percent))
-            button?.toolTip = L("%@ is charging, %ld%%", charging.name, charging.percent)
-        } else if let low = Battery.lowest(batteries) {
-            button?.image = StatusIcon.make(level: Double(low.percent) / 100, dot: false)
-            button?.toolTip = L("%@: %ld%% battery", low.name, low.percent)
-            showDot(.systemRed)
+        statusBattery = Battery.indicator(batteries, keeping: statusBattery)
+        let point = Battery.indicatorPoint(for: statusBattery, updateAvailable: updates.waiting != nil)
+        if let battery = statusBattery {
+            if battery.chargedOnCable {
+                button?.image = StatusIcon.make(dot: false)
+                button?.toolTip = L("%@ is fully charged and plugged in", battery.name)
+            } else {
+                button?.image = StatusIcon.make(level: Double(battery.percent) / 100,
+                                               tint: battery.charging ? .systemGreen : .systemRed, dot: point == .ordinary)
+                button?.toolTip = battery.charging
+                    ? L("%@ is charging, %ld%%", battery.name, battery.percent)
+                    : L("%@: %ld%% battery", battery.name, battery.percent)
+            }
+            if let waiting = updates.waiting {
+                button?.toolTip = [button?.toolTip ?? "", L("%@ %@ Available", Brand.name, waiting)].joined(separator: "\n")
+            }
         } else if let waiting = updates.waiting {
-            // An update found in the background: the dot in the accent colour until the person looks at it.
             button?.image = StatusIcon.make(dot: false)
             button?.toolTip = L("%@ %@ Available", Brand.name, waiting)
-            showDot(.controlAccentColor)
         } else {
-            showDot(nil)
             button?.image = StatusIcon.make()
             button?.toolTip = "\(Brand.name) \(version)"
         }
+        switch point {
+        case .update: showDot(.systemBlue)
+        case .charged: showDot(.systemGreen)
+        case .ordinary: showDot(nil)
+        }
+        button?.setAccessibilityLabel(button?.toolTip)
         updateIconVisibility(batteries: batteries)
     }
 

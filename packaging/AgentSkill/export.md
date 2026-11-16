@@ -18,6 +18,8 @@
   of the tap chain. `blockedDevice` identifies a reversed device whose direction was changed back. When `blockedBy`
   has several programs, they are candidates.
 - `batteries` and `batteryForecasts`: charge per device, and how long each lasts at its rate since its last charge
+  (`chargedOnCable`, when present and true, means the device explicitly reported charge complete while plugged in;
+  100% alone does not establish that state).
   (`daysLeft`, `percentPerDay`, `since`, `readAt`). A forecast appears only after a day of readings and a drop of 3
   points since that charge, so say "not estimated yet" rather than guessing. A device that reports in coarse steps
   (every drop 10 points or more) never gets one.

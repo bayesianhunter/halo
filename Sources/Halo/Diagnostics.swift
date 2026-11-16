@@ -588,7 +588,18 @@ extension AppDelegate {
                             universalControlConnected: engine.universalControl.connected,
                             universalControlCurrent: engine.universalControl.current, pointerHere: handoffWatch.here, menuOpen: menuOpen,
                             peerTitle: groups.peer?.title, peerRows: groups.peer?.rows.map { entry($0.0) }, peerNote: groups.peer?.note)
+        report.page?.menuOpening = menuOpening
+        if menuOpen {
+            report.page?.openMenuDeviceNames = menu.items.compactMap { item in
+                guard menuDeviceItems[item] != nil, let view = item.view as? DeviceRowView,
+                      view.window?.isVisible == true else { return nil }
+                return view.displayedTitle
+            }
+        }
         report.notes = report.gaps()
+        if classic.usingAudioFallback {
+            report.notes.append(L("Bluetooth audio is listed from Core Audio; Bluetooth device details are temporarily unavailable"))
+        }
         return report
     }
 }

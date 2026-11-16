@@ -3,23 +3,6 @@ import AppKit
 import HaloCore
 import IOBluetooth
 
-/// A connected classic Bluetooth device as the menu shows it.
-struct ClassicDevice {
-    let name: String
-    /// Lower-case, colon-separated, to match HID SerialNumber values such as "aa:bb:cc:dd:ee:01".
-    let address: String
-    let symbol: String
-    let rssi: Int?
-    /// A speaker or headphones: something sound can be sent to.
-    var audio = false
-    /// For audio devices: a speaker plays music only; headphones are a microphone too.
-    var speaker = false
-    /// Charge the system keeps for some audio devices (AirPods and Beats: left, right, case), by part.
-    var levels: [String: Int] = [:]
-    /// The major class of its class of device (`BluetoothClass`); none (0) for one connected over Bluetooth Low Energy.
-    var major: UInt32 = 0
-}
-
 enum Address {
     static func normalize(_ value: String) -> String {
         value.replacingOccurrences(of: "-", with: ":").lowercased()
@@ -28,6 +11,11 @@ enum Address {
 
 /// Connected classic Bluetooth devices (keyboard, trackpad, speakers) and their link signal.
 final class ClassicBluetooth {
+    private var inventory = BluetoothInventory()
+    private var metadataAttempted: Set<String> = []
+    private(set) var usingAudioFallback = false
+    /// The running app supplies AudioRoutes' event-driven snapshot; cold diagnostics can read directly.
+    var audioOutputs: () -> [BluetoothAudioEndpoint] = AudioRoutes.bluetoothOutputs
     /// Phones and computers keep a Bluetooth link for Handoff and hotspot, and offer a battery service too; the
     /// system's Bluetooth list knows them by class, and they are not peripherals.
     static func isPeripheral(_ device: IOBluetoothDevice) -> Bool {
@@ -37,14 +25,31 @@ final class ClassicBluetooth {
     /// Reads the current signal of each connected device; the controller answers locally, without radio traffic.
     func connected() -> [ClassicDevice] {
         let paired = IOBluetoothDevice.pairedDevices() as? [IOBluetoothDevice] ?? []
-        return paired.filter { $0.isConnected() && Self.isPeripheral($0) }.map { device in
-            let raw = Int(device.rawRSSI())
-            let symbol = Self.symbol(of: device)
-            return ClassicDevice(name: device.name ?? L("Bluetooth Device"), address: Address.normalize(device.addressString ?? ""),
-                                 symbol: symbol, rssi: raw == 127 || raw == 0 ? nil : raw,
-                                 audio: device.deviceClassMajor == UInt32(kBluetoothDeviceClassMajorAudio),
-                                 speaker: symbol == "hifispeaker.fill", levels: Self.levels(of: device), major: device.deviceClassMajor)
+        var devices = paired.filter { $0.isConnected() && Self.isPeripheral($0) }.map(Self.snapshot)
+        let audio = audioOutputs()
+        let present = Set(audio.map(\.address))
+        metadataAttempted.formIntersection(present)
+        // The paired-device factory can fail in a long-running process. Try a missing audio address directly once
+        // per connection, not on a timer or every redraw. Core Audio supplies presence; Bluetooth supplies class.
+        for endpoint in audio where !devices.contains(where: { $0.address == endpoint.address && $0.audio }) {
+            if metadataAttempted.insert(endpoint.address).inserted,
+               let device = IOBluetoothDevice(addressString: endpoint.address),
+               device.deviceClassMajor == UInt32(kBluetoothDeviceClassMajorAudio) {
+                devices.removeAll { $0.address == endpoint.address }
+                devices.append(Self.snapshot(device))
+            }
         }
+        usingAudioFallback = audio.contains { endpoint in !devices.contains { $0.address == endpoint.address && $0.audio } }
+        return inventory.update(classic: devices, audio: audio)
+    }
+
+    private static func snapshot(_ device: IOBluetoothDevice) -> ClassicDevice {
+        let raw = Int(device.rawRSSI())
+        let symbol = Self.symbol(of: device)
+        return ClassicDevice(name: device.name ?? L("Bluetooth Device"), address: Address.normalize(device.addressString ?? ""),
+                             symbol: symbol, rssi: raw == 127 || raw == 0 ? nil : raw,
+                             audio: device.deviceClassMajor == UInt32(kBluetoothDeviceClassMajorAudio),
+                             speaker: symbol == "hifispeaker.fill", levels: Self.levels(of: device), major: device.deviceClassMajor)
     }
 
     /// The per-part charge IOBluetooth keeps for Apple and Beats headphones; not public API, so read only where the
@@ -85,6 +90,7 @@ final class ClassicBluetooth {
 /// signal bars, the charge as a percentage and battery glyph, and for pointing devices a switch.
 /// Without a symbol it is the title row: the app icon, the name in bold and what is being reversed.
 final class DeviceRowView: NSView {
+    var displayedTitle: String { title.stringValue }
     private let title = NSTextField(labelWithString: "")
     private let detail = NSTextField(labelWithString: "")
     private let bars = NSImageView()
@@ -93,6 +99,7 @@ final class DeviceRowView: NSView {
     private let trailing = NSStackView()
     private var plug: PlugView?
     private var tile: RoundTile?
+    private var microphone: MicButton?
     let toggle: MenuSwitch?
     var onToggle: ((Bool) -> Void)?
 
@@ -103,6 +110,7 @@ final class DeviceRowView: NSView {
         toggle = isOn.map(MenuSwitch.init(isOn:))
         let micButton = mic.map(MicButton.init)
         super.init(frame: NSRect(x: 0, y: 0, width: 320, height: 42))
+        microphone = micButton
         title.stringValue = text
         title.font = .menuFont(ofSize: 13)
         // Cut in the middle: the owner at the start and the model at the end are what tell two devices apart.
@@ -247,21 +255,24 @@ final class DeviceRowView: NSView {
         }
         charge.isHidden = battery == nil
         glyph.isHidden = battery == nil
-        charge.toolTip = timeLeft
-        glyph.toolTip = timeLeft
+        let chargeHelp = battery?.chargedOnCable == true ? L("Fully charged, plugged in") : timeLeft
+        charge.toolTip = chargeHelp
+        glyph.toolTip = chargeHelp
         // Not on the row itself: its tooltip would also be its accessibility help, read after the label that says it.
         title.toolTip = [title.stringValue, timeLeft].compactMap { $0 }.joined(separator: "\n")
         // Charging: a plug in the battery's terminal, with the charge trickling in along its cable.
-        if let plug, battery?.charging != true || plug.connector != battery?.connector {
+        let pluggedIn = battery?.charging == true || battery?.chargedOnCable == true
+        if let plug, !pluggedIn || plug.connector != battery?.connector {
             trailing.removeArrangedSubview(plug)
             plug.removeFromSuperview()
             self.plug = nil
         }
-        if plug == nil, let battery, battery.charging, let index = trailing.arrangedSubviews.firstIndex(of: glyph) {
-            let plug = PlugView(connector: battery.connector)
+        if plug == nil, let battery, pluggedIn, let index = trailing.arrangedSubviews.firstIndex(of: glyph) {
+            let plug = PlugView(connector: battery.connector, charging: battery.charging)
             trailing.insertArrangedSubview(plug, at: index + 1)
             self.plug = plug
         }
+        plug?.charging = battery?.charging == true
     }
 
     /// The time left as the detail line shows it, when it is soon (`RowSpec.timeLeftSoon`); the row's other facts
@@ -283,6 +294,19 @@ final class DeviceRowView: NSView {
         update(rssi: rssi)
     }
 
+    /// Audio route notifications also change the words and microphone state while the menu is open.
+    /// Update the existing controls, retaining their focus and callbacks.
+    func update(facts shown: [String], active: Bool, mic: MicButton.Spec?) {
+        tile?.lit = active
+        if let mic { microphone?.update(mic) }
+        guard facts != shown else { return }
+        facts = shown
+        detail.stringValue = shown.joined(separator: " · ")
+        detail.isHidden = shown.isEmpty
+        accessibilityBase = spokenBase(shown)
+        update(rssi: rssi)
+    }
+
     private var accessibilityBase = ""
     private var facts: [String] = []
     private var rssi: Int?
@@ -292,14 +316,19 @@ final class DeviceRowView: NSView {
 
     /// How VoiceOver reads a device row, in the menu and in the window alike: name, facts, then the charge.
     static func spoken(_ parts: [String?], battery: Battery?, rssi: Int? = nil) -> String {
-        (parts + [battery.map { L("Battery %ld%%", $0.percent) }, battery?.charging == true ? L("Charging") : nil, signalText(rssi)])
+        (parts + [battery.map { L("Battery %ld%%", $0.percent) }, battery?.charging == true ? L("Charging") : nil,
+                  battery?.chargedOnCable == true ? L("Fully charged, plugged in") : nil, signalText(rssi)])
             .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: L("CLAUSE_SEPARATOR"))
     }
     /// Makes the whole row a button, highlighted under the pointer as menu items are; clicking it closes the menu.
     var onClick: (() -> Void)? {
         didSet {
-            setAccessibilityRole(onClick == nil ? .group : .button)
-            updateTrackingAreas()
+            // Refreshing a route's callback must not churn tracking areas. Only a change in clickability needs one.
+            if (oldValue == nil) != (onClick == nil) {
+                setAccessibilityRole(onClick == nil ? .group : .button)
+                if onClick == nil { hovered = false }
+                updateTrackingAreas()
+            }
         }
     }
     private var hovered = false { didSet { if hovered != oldValue { needsDisplay = true } } }
@@ -401,9 +430,17 @@ final class PlugView: NSView {
     private let cable = CAShapeLayer()
     private let current = CAShapeLayer()
     let connector: Battery.Connector?
+    var charging: Bool {
+        didSet {
+            guard charging != oldValue else { return }
+            if charging { startFlow() } else { current.removeAnimation(forKey: "flow") }
+            current.isHidden = !charging
+        }
+    }
 
-    init(connector: Battery.Connector?) {
+    init(connector: Battery.Connector?, charging: Bool = true) {
         self.connector = connector
+        self.charging = charging
         super.init(frame: NSRect(origin: .zero, size: Self.size))
         wantsLayer = true
         setAccessibilityElement(false)
@@ -430,6 +467,7 @@ final class PlugView: NSView {
         current.lineCap = .round
         current.lineDashPattern = [0.1, 4]
         for layer in [cable, body, current] { layer.fillColor = nil; self.layer?.addSublayer(layer) }
+        current.isHidden = !charging
     }
 
     required init?(coder: NSCoder) { nil }
@@ -437,7 +475,12 @@ final class PlugView: NSView {
     /// The beads drift once the row is in an open menu or window, so the moment is not spent before anyone sees it.
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        guard window != nil, current.animation(forKey: "flow") == nil else { return }
+        if window == nil { current.removeAnimation(forKey: "flow") }
+        else { startFlow() }
+    }
+
+    private func startFlow() {
+        guard charging, window != nil, current.animation(forKey: "flow") == nil else { return }
         let flow = CABasicAnimation(keyPath: "lineDashPhase")
         flow.fromValue = 0
         flow.toValue = -4.1
@@ -585,6 +628,12 @@ final class MicButton: NSButton {
     }
 
     required init?(coder: NSCoder) { nil }
+
+    func update(_ next: Spec) {
+        let changed = spec.look != next.look || spec.help != next.help || spec.stuck != next.stuck
+        spec = next
+        if changed { show() }
+    }
 
     /// Clicks are taken here, as `MenuSwitch` takes them: inside an open menu, NSButton's own mouse tracking never sees
     /// the mouse-up, so its action would not fire. The action stays for the keyboard and VoiceOver.

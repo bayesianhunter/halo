@@ -34,6 +34,16 @@ enum DocsRender {
         return 0
     }
 
+    /// Render from the bundle when available, or the source tree when running the documentation renderer directly.
+    private static var appVersion: String? {
+        let source = try? Data(contentsOf: URL(fileURLWithPath: "packaging/Info.plist"))
+        let sourceInfo = source.flatMap { try? PropertyListSerialization.propertyList(from: $0, format: nil) } as? [String: Any]
+        let info = Bundle.main.infoDictionary?["CFBundleShortVersionString"] != nil ? Bundle.main.infoDictionary : sourceInfo
+        guard let version = info?["CFBundleShortVersionString"] as? String,
+              let build = info?["CFBundleVersion"] as? String else { return nil }
+        return "\(version) (\(build))"
+    }
+
     private static let mouse = Battery(name: "Magic Mouse", serial: "", percent: 80)
     private static let trackpad = Battery(name: "Magic Trackpad", serial: "", percent: 64)
     private static let keyboard = Battery(name: "Magic Keyboard", serial: "", percent: 55)
@@ -43,7 +53,7 @@ enum DocsRender {
     private static func menu() -> NSView {
         let kept = MicButton.Spec(look: .kept, help: "", toggle: nil)
         let rows: [NSView] = [
-            MenuHeaderView(title: Brand.name, status: L("Reversing %@", "Magic Mouse"), state: .working, version: "0.8.0 (68)"),
+            MenuHeaderView(title: Brand.name, status: L("Reversing %@", "Magic Mouse"), version: appVersion),
             separator(),
             SectionHeading(name: "MacBook Pro", identity: L("This Mac"), trailing: L("Reverse"), inMenu: true),
             DeviceRowView(symbol: "rectangle.and.hand.point.up.left", title: L("Built-in Trackpad"), facts: [], isOn: false),
@@ -71,7 +81,7 @@ enum DocsRender {
     /// sits with the Mac it belongs to, under this Mac's switch, and what was copied on the Pro has come over.
     private static func peerMenu() -> NSView {
         let rows: [NSView] = [
-            MenuHeaderView(title: Brand.name, status: L("Reversing %@", "Magic Mouse"), state: .working, version: "0.8.0 (68)"),
+            MenuHeaderView(title: Brand.name, status: L("Reversing %@", "Magic Mouse"), version: appVersion),
             separator(),
             SectionHeading(name: "MacBook Air", identity: L("This Mac"), trailing: L("Reverse"), inMenu: true),
             DeviceRowView(symbol: "rectangle.and.hand.point.up.left", title: L("Built-in Trackpad"), facts: [], isOn: false),
@@ -162,18 +172,23 @@ enum DocsRender {
         try? bitmap.representation(using: .png, properties: [:])?.write(to: url)
     }
 
-    /// The menu-bar mark in its states: idle, a device running low (red dot), and one charging (`icon-…`); and the
+    /// The menu-bar mark in its states: idle, a device running low (red ring and dot), and one charging (`icon-…`); and the
     /// status items a page sets on either side of it (`bar-left`, `bar-right`).
     private static func writeIcons(appearance: NSAppearance, dark: Bool, to folder: URL) {
         let ink: NSColor = dark ? .white : .black
-        let states: [(String, NSImage, Bool)] = [
-            ("idle", StatusIcon.make(), false),
-            ("low", StatusIcon.make(level: 0.12, dot: false), true),
-            ("charging", StatusIcon.make(level: 0.62, tint: StatusIcon.color(charging: 62)), false),
+        let states: [(String, NSImage, NSColor?)] = [
+            ("idle", StatusIcon.make(), nil),
+            ("update", StatusIcon.make(dot: false), .systemBlue),
+            ("low", StatusIcon.make(level: 0.12, tint: .systemRed), nil),
+            ("low-update", StatusIcon.make(level: 0.12, tint: .systemRed, dot: false), .systemBlue),
+            ("charging", StatusIcon.make(level: 0.62, tint: .systemGreen), nil),
+            ("charging-update", StatusIcon.make(level: 0.62, tint: .systemGreen, dot: false), .systemBlue),
+            ("charged", StatusIcon.make(dot: false), .systemGreen),
+            ("charged-update", StatusIcon.make(dot: false), .systemBlue),
         ]
         let theme = dark ? "dark" : "light"
-        for (name, icon, redDot) in states {
-            let large = NSImageView(image: mark(icon, redDot: redDot, ink: ink, side: 96))
+        for (name, icon, dot) in states {
+            let large = NSImageView(image: mark(icon, dot: dot, ink: ink, side: 96))
             large.frame.size = NSSize(width: 96, height: 96)
             large.imageScaling = .scaleNone
             write(large, appearance: appearance, to: folder.appendingPathComponent("icon-\(name)-\(theme).png"))
@@ -184,9 +199,9 @@ enum DocsRender {
               to: folder.appendingPathComponent("bar-right-\(theme).png"))
     }
 
-    /// The mark as the menu bar draws it: a template in the bar's colour, a tinted one as it is, and the red dot that
+    /// The mark as the menu bar draws it: a template in the bar's colour, a tinted one as it is, and the update dot that
     /// the menu sets on a layer over it.
-    private static func mark(_ icon: NSImage, redDot: Bool, ink: NSColor, side: CGFloat) -> NSImage {
+    private static func mark(_ icon: NSImage, dot: NSColor?, ink: NSColor, side: CGFloat) -> NSImage {
         NSImage(size: NSSize(width: side, height: side), flipped: true) { rect in
             if icon.isTemplate {
                 let tinted = NSImage(size: icon.size, flipped: false) { r in
@@ -199,12 +214,12 @@ enum DocsRender {
             } else {
                 icon.draw(in: rect)
             }
-            if redDot {
+            if let dot {
                 let scale = side / 24
                 let center = CGPoint(x: (12 + StatusIcon.dotOffset * cos(StatusIcon.dotAngle)) * scale,
                                      y: (12 + StatusIcon.dotOffset * sin(StatusIcon.dotAngle)) * scale)
                 let radius = StatusIcon.dotRadius * scale
-                NSColor.systemRed.setFill()
+                dot.setFill()
                 NSBezierPath(ovalIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2)).fill()
             }
             return true

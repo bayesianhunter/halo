@@ -1,8 +1,8 @@
 # Contributing
 
-Halo takes **issues, not pull requests**. Bug reports, measurements from your Mac and ideas are welcome; code is
-written and reviewed in the maintainers' own repository and released from there, so pull requests here are closed
-without review. The license (GPL-3.0) lets you fork and change Halo as you like.
+Halo welcomes bug reports, measurements and ideas through issues. External code pull requests are not accepted;
+code is developed and reviewed by the maintainers, then published here through release-sync pull requests.
+The GPL-3.0 license lets you fork and change Halo as you like.
 
 ## A good bug report
 

@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import Foundation
 
-/// A peripheral's reported charge. Only devices that publish BatteryPercent appear (Apple Bluetooth peripherals).
+/// A peripheral's reported charge, from the registry or a connected device's battery service.
 public struct Battery: Equatable {
     public static let lowPercent = 20
     public let name: String
     public let serial: String
     public let percent: Int
-    /// On a cable and taking charge. Only devices that report it (Apple's own) ever say so.
+    /// Taking charge, explicitly reported by the device (Apple's registry flags or Logitech's battery status).
     public let charging: Bool
+    /// Explicit charge-complete report while external power remains connected. Never inferred from 100% alone.
+    public let chargedOnCable: Bool
     /// The socket the charging cable goes into, when the model is known.
     public let connector: Connector?
 
@@ -26,16 +28,19 @@ public struct Battery: Equatable {
         guard let percent = (p["percent"] as? NSNumber)?.intValue, (0...100).contains(percent) else { return nil }
         self.percent = percent
         charging = (p["charging"] as? NSNumber)?.boolValue ?? false
+        // The registry flags read here do not yet establish this state reliably.
+        chargedOnCable = false
         connector = Self.connector(vendor: (p["VendorID"] as? NSNumber)?.intValue, product: (p["ProductID"] as? NSNumber)?.intValue)
         serial = p["SerialNumber"] as? String ?? ""
         name = p["Product"] as? String ?? Device.unnamed
     }
 
-    public init(name: String, serial: String, percent: Int, charging: Bool = false) {
+    public init(name: String, serial: String, percent: Int, charging: Bool = false, chargedOnCable: Bool = false) {
         self.name = name
         self.serial = serial
         self.percent = min(max(percent, 0), 100)
         self.charging = charging
+        self.chargedOnCable = chargedOnCable && !charging && self.percent == 100
         connector = nil
     }
 
@@ -57,7 +62,27 @@ public struct Battery: Equatable {
 
     /// The lowest charge worth surfacing in the menu bar, if any device is low.
     public static func lowest(_ batteries: [Battery]) -> Battery? {
-        batteries.filter(\.isLow).min { $0.percent < $1.percent }
+        batteries.filter(\.needsCharge).min { $0.percent < $1.percent }
+    }
+
+    /// Unattended low batteries, then charging, then full but still plugged in. Equal readings keep the selection.
+    public static func indicator(_ batteries: [Battery], keeping previous: Battery? = nil) -> Battery? {
+        let unattended = batteries.filter(\.needsCharge)
+        let charging = batteries.filter(\.charging)
+        let candidates = !unattended.isEmpty ? unattended : !charging.isEmpty ? charging : batteries.filter(\.chargedOnCable)
+        guard let lowest = candidates.min(by: { $0.percent < $1.percent }) else { return nil }
+        if let previous, let same = candidates.first(where: {
+            $0.percent == lowest.percent && $0.name == previous.name && $0.serial == previous.serial
+        }) { return same }
+        return lowest
+    }
+
+    public enum IndicatorPoint: Equatable { case ordinary, charged, update }
+
+    /// Updates own the point first; after attention to the update, a full plugged-in device gets its green point back.
+    public static func indicatorPoint(for battery: Battery?, updateAvailable: Bool) -> IndicatorPoint {
+        if updateAvailable { return .update }
+        return battery?.chargedOnCable == true ? .charged : .ordinary
     }
 }
 

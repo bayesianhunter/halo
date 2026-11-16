@@ -2,6 +2,7 @@
 import AppKit
 import CoreAudio
 import Foundation
+import HaloCore
 import IOKit
 
 /// Where sound goes and comes from, for the Bluetooth audio rows: which device plays, which one listens, and
@@ -21,6 +22,7 @@ final class AudioRoutes {
     }
 
     private(set) var state = State()
+    private(set) var outputs: [BluetoothAudioEndpoint] = []
     var onChange: (() -> Void)?
     /// Every Bluetooth device's "running" and sample-rate notices, so a microphone an app picked itself is seen too.
     private var watchedBluetooth: Set<AudioObjectID> = []
@@ -46,7 +48,7 @@ final class AudioRoutes {
     /// Plays through the Bluetooth device at `address`. False if it has no output.
     @discardableResult
     func useOutput(_ address: String) -> Bool {
-        guard let device = devices().first(where: { Self.bluetoothAddress($0) == address && Self.hasStreams($0, input: false) }) else { return false }
+        guard let device = Self.devices().first(where: { Self.bluetoothAddress($0) == address && Self.hasStreams($0, input: false) }) else { return false }
         return setDefault(kAudioHardwarePropertyDefaultOutputDevice, device)
     }
 
@@ -67,7 +69,7 @@ final class AudioRoutes {
     /// the lid closed, since it hears nothing useful then. Nil when there is none, as on a Mac mini with only the speaker.
     func restoreTarget(lidClosed: Bool) -> (device: AudioObjectID, builtIn: Bool)? {
         let isBuiltIn = { (device: AudioObjectID) in Self.uint32(device, kAudioDevicePropertyTransportType) == kAudioDeviceTransportTypeBuiltIn }
-        let usable = devices().filter { Self.wired($0) && !(lidClosed && isBuiltIn($0)) }
+        let usable = Self.devices().filter { Self.wired($0) && !(lidClosed && isBuiltIn($0)) }
         let device = usable.first { ownInput != nil && Self.string($0, kAudioDevicePropertyDeviceUID) == ownInput }
             ?? usable.first(where: isBuiltIn)
             // An aggregate the person made only when it is all there is: it may hold the speaker itself.
@@ -89,7 +91,7 @@ final class AudioRoutes {
     var builtInMicrophoneName: String? { builtInMicrophone.flatMap { Self.string($0, kAudioObjectPropertyName) } }
 
     private var builtInMicrophone: AudioObjectID? {
-        devices().first { Self.uint32($0, kAudioDevicePropertyTransportType) == kAudioDeviceTransportTypeBuiltIn && Self.hasStreams($0, input: true) }
+        Self.devices().first { Self.uint32($0, kAudioDevicePropertyTransportType) == kAudioDeviceTransportTypeBuiltIn && Self.hasStreams($0, input: true) }
     }
 
     private func update() {
@@ -98,7 +100,10 @@ final class AudioRoutes {
         if input != 0, Self.wired(input), let uid = Self.string(input, kAudioDevicePropertyDeviceUID) {
             ownInput = uid
         }
-        let bluetooth = devices().filter { Self.bluetoothAddress($0) != nil }
+        let bluetooth = Self.devices().filter { Self.bluetoothAddress($0) != nil }
+        let nextOutputs = Self.endpoints(bluetooth)
+        let topologyChanged = Set(bluetooth) != watchedBluetooth || nextOutputs != outputs
+        outputs = nextOutputs
         watchBluetooth(Set(bluetooth))
         // Playing matters only for a Bluetooth output (the log is read and the row marked only then), and every Bluetooth
         // device's running state is watched above; other outputs starting and stopping sound wake nothing here.
@@ -117,7 +122,8 @@ final class AudioRoutes {
                 next.callQuality.insert(address)
             }
         }
-        guard next != state else { return }
+        // A non-default speaker joining or leaving need not change the default route or running state.
+        guard next != state || topologyChanged else { return }
         state = next
         onChange?()
     }
@@ -126,7 +132,8 @@ final class AudioRoutes {
         guard devices != watchedBluetooth else { return }
         for (set, add) in [(watchedBluetooth.subtracting(devices), false), (devices.subtracting(watchedBluetooth), true)] {
             for device in set {
-                for selector in [kAudioDevicePropertyDeviceIsRunningSomewhere, kAudioDevicePropertyNominalSampleRate] {
+                for selector in [kAudioDevicePropertyDeviceIsRunningSomewhere, kAudioDevicePropertyNominalSampleRate,
+                                 kAudioDevicePropertyDeviceIsAlive, kAudioObjectPropertyName] {
                     var address = Self.address(selector)
                     if add { AudioObjectAddPropertyListenerBlock(device, &address, .main, listener) }
                     else { AudioObjectRemovePropertyListenerBlock(device, &address, .main, listener) }
@@ -183,13 +190,27 @@ final class AudioRoutes {
         return AudioObjectGetPropertyData(object, &address, 0, nil, &size, &value) == noErr ? value : 0
     }
 
-    private func devices() -> [AudioObjectID] {
+    private static func devices() -> [AudioObjectID] {
+        let system = AudioObjectID(kAudioObjectSystemObject)
         var address = Self.address(kAudioHardwarePropertyDevices)
         var size: UInt32 = 0
         guard AudioObjectGetPropertyDataSize(system, &address, 0, nil, &size) == noErr else { return [] }
         var ids = [AudioObjectID](repeating: 0, count: Int(size) / MemoryLayout<AudioObjectID>.size)
         guard AudioObjectGetPropertyData(system, &address, 0, nil, &size, &ids) == noErr else { return [] }
         return ids
+    }
+
+    /// Current, alive audio outputs only: paired or cached devices that are disconnected do not qualify.
+    static func bluetoothOutputs() -> [BluetoothAudioEndpoint] {
+        endpoints(devices())
+    }
+
+    private static func endpoints(_ devices: [AudioObjectID]) -> [BluetoothAudioEndpoint] {
+        devices.compactMap { device in
+            guard uint32(device, kAudioDevicePropertyDeviceIsAlive) != 0, hasStreams(device, input: false),
+                  let address = bluetoothAddress(device), let name = string(device, kAudioObjectPropertyName) else { return nil }
+            return BluetoothAudioEndpoint(name: name, address: address)
+        }
     }
 
     private func setDefault(_ selector: AudioObjectPropertySelector, _ device: AudioObjectID) -> Bool {
