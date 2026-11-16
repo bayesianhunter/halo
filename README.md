@@ -21,7 +21,7 @@ https://github.com/user-attachments/assets/2aa22e10-7f1d-403d-aee5-70ea875cea0b
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/menubar-dark.png">
-    <img src="docs/menubar-light.png" width="100%" alt="Halo’s menu-bar ring: normal, low battery with a red dot, and charging with a colored charge arc.">
+    <img src="docs/menubar-light.png" width="100%" alt="Halo’s menu-bar ring: normal, low battery in red, and charging in green.">
   </picture>
 </p>
 

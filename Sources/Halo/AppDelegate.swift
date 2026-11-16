@@ -19,6 +19,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     let diagnosisButton = NSButton(title: "", target: nil, action: nil)
     let summaryButton = NSButton(title: "", target: nil, action: nil)
     var statusDot: StatusIcon.Dot?
+    var statusBattery: Battery?
     var dotObserver: NSObjectProtocol?
     /// Run only when an agent asks for it through `Halo --diagnostics --audio-check`.
     let audioCheck = AudioCheck()
@@ -47,6 +48,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Ids two rows of the open menu share (two devices of one name): `rowInfo` holds only the last, so these are
     /// left as the menu opened.
     var sharedRowIDs: Set<String> = []
+    /// Tracked items keep their views when a peripheral connects during menu tracking.
+    var menuDeviceItems: [NSMenuItem: String] = [:]
+    var menuLocalItems: [(id: String, item: NSMenuItem)] = []
+    var menuLocalHeading: NSMenuItem?
+    var menuRowsQueued = false
+    var menuRowsHeld = false
+    var menuOpening = 0
     let pages = NSTabView()
     let pagePicker = PillPicker(titles: [L("Devices"), L("General"), L("Diagnostics"), L("About")])
     let devicesStack = NSStackView()
@@ -218,6 +226,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // Without the system's private callbacks, the engine keeps listing devices every minute instead.
         engine.devicesWatched = serviceWatch.start()
         loadAudio()
+        classic.audioOutputs = { [weak self] in self?.audio.outputs ?? [] }
         startAudioWatch()
         listenForDiagnosticsRequests()
         // What already holds at launch: a speaker set as the microphone, or sound already playing.
@@ -360,7 +369,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func updateIconVisibility(batteries: [Battery]? = nil) {
         guard !menuOpen else { return }
         let attention = engine.blocked != nil
-            || Battery.lowest(batteries ?? engine.batteries + audioBatteries()) != nil
+            || Battery.indicator(batteries ?? engine.batteries + audioBatteries()) != nil
             || updates.waiting != nil
         statusItem.isVisible = engine.showIcon || attention
     }
@@ -386,6 +395,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Something the window shows changed: refreshed once for a burst of changes while the window can be seen, else
     /// once it can be seen again.
     func settingsChanged() {
+        refreshOpenMenu()
         guard let window, window.isVisible, window.occlusionState.contains(.visible) else {
             renderPending = true
             return
@@ -535,7 +545,8 @@ extension AppDelegate {
         // borrowed devices would then advertise the remembered row as ours, echoing the peer's trackpad back to it.
         let devices = (rows.pointing + rows.others).filter { !$0.lent }.map { spec in
             LinkDevice(name: spec.title, kind: LinkDevice.Kind(symbol: spec.symbol), battery: spec.battery?.percent,
-                       charging: spec.battery?.charging == true, reversed: spec.isOn == true, pointing: spec.isOn != nil, builtIn: spec.builtIn)
+                       charging: spec.battery?.charging == true, chargedOnCable: spec.battery?.chargedOnCable == true,
+                       reversed: spec.isOn == true, pointing: spec.isOn != nil, builtIn: spec.builtIn)
         }
         // One setting per device: a built-in trackpad lists several services. Sorted first, so the same state always
         // makes the same bytes and is not sent again.
@@ -596,7 +607,8 @@ extension AppDelegate {
             // Offline, the section already says it is a snapshot; a row only notes that it was reversing.
             let spec = RowSpec(id: "#peer-\(index)", symbol: device.kind.symbol, title: title,
                                facts: device.reversed ? [online ? L("Reversing") : L("Was reversing at last connection")] : [],
-                               battery: device.battery.map { Battery(name: title, serial: "", percent: $0, charging: device.charging) }, builtIn: device.builtIn)
+                               battery: device.battery.map { Battery(name: title, serial: "", percent: $0, charging: device.charging,
+                                                                   chargedOnCable: device.chargedOnCable) }, builtIn: device.builtIn)
             return (spec, online && remote.active && device.reversed)
         }
         var note: String?

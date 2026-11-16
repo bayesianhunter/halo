@@ -82,15 +82,13 @@ enum Layout {
     static let footnoteSize: CGFloat = 12
 }
 
-/// The top of the menu: Halo's icon, large, its name, and a line on what it is doing with a dot that says at a glance
-/// whether that is all well (green), nothing to do (grey) or needs the person (orange).
+/// The top of the menu: Halo's icon, large, its name, and a line on what it is doing. No coloured status dot: in the
+/// menu, colour is kept for batteries and for an update waiting, and the line already says what a dot would.
 final class MenuHeaderView: NSView {
-    enum State { case working, idle, attention }
-
     static let iconSide: CGFloat = 34
 
     /// `version` sits at the right, and a click copies it with the macOS version, for a bug report.
-    init(title text: String, status: String, state: State, version: String? = nil, versionDetail: String? = nil) {
+    init(title text: String, status: String, version: String? = nil, versionDetail: String? = nil) {
         super.init(frame: NSRect(x: 0, y: 0, width: 320, height: 54))
         autoresizingMask = [.width]
         let icon = NSImageView(image: NSApp.applicationIconImage)
@@ -98,14 +96,13 @@ final class MenuHeaderView: NSView {
         icon.setAccessibilityElement(false)
         let title = NSTextField(labelWithString: text)
         title.font = .systemFont(ofSize: 14, weight: .semibold)
-        let dot = StatusDot(color: state == .working ? .systemGreen : state == .attention ? .systemOrange : .tertiaryLabelColor)
         let line = NSTextField(labelWithString: status)
         line.font = .systemFont(ofSize: 11)
         line.textColor = .secondaryLabelColor
         line.lineBreakMode = .byTruncatingTail
         line.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         let copy = version.map { VersionButton(version: $0, copies: [text, $0, versionDetail].compactMap { $0 }.joined(separator: " ")) }
-        for view in [icon, title, dot, line] + [copy].compactMap({ $0 }) as [NSView] {
+        for view in [icon, title, line] + [copy].compactMap({ $0 }) as [NSView] {
             view.translatesAutoresizingMaskIntoConstraints = false
             addSubview(view)
         }
@@ -120,11 +117,7 @@ final class MenuHeaderView: NSView {
             title.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 10),
             title.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 1),
             title.trailingAnchor.constraint(lessThanOrEqualTo: textEnd, constant: -textGap),
-            dot.leadingAnchor.constraint(equalTo: title.leadingAnchor, constant: 1),
-            dot.centerYAnchor.constraint(equalTo: line.centerYAnchor),
-            dot.widthAnchor.constraint(equalToConstant: 7),
-            dot.heightAnchor.constraint(equalToConstant: 7),
-            line.leadingAnchor.constraint(equalTo: dot.trailingAnchor, constant: 6),
+            line.leadingAnchor.constraint(equalTo: title.leadingAnchor, constant: 1),
             line.topAnchor.constraint(equalTo: centerYAnchor, constant: 2),
             // The version sits level with the title only, so the line under it runs to the menu's edge.
             line.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Layout.menuEdge),
@@ -136,10 +129,10 @@ final class MenuHeaderView: NSView {
         }
         let copyWidth = copy.map { $0.fittingSize.width - 4 + Layout.gap } ?? 0
         let needed = Layout.menuLead + RoundTile.side / 2 + Self.iconSide / 2 + 10
-            + max(title.intrinsicContentSize.width + copyWidth, 14 + line.intrinsicContentSize.width) + Layout.menuEdge
+            + max(title.intrinsicContentSize.width + copyWidth, 1 + line.intrinsicContentSize.width) + Layout.menuEdge
         frame.size.width = min(DeviceRowView.maxWidth, max(320, ceil(needed)))
         // The text is one element for VoiceOver, read once, as a section heading is; the version is its own button.
-        for part in [title, line, dot] as [NSView] { part.setAccessibilityElement(false) }
+        for part in [title, line] as [NSView] { part.setAccessibilityElement(false) }
         setAccessibilityElement(true)
         setAccessibilityRole(.group)
         setAccessibilityLabel([text, status].joined(separator: L("CLAUSE_SEPARATOR")))
@@ -202,26 +195,6 @@ private final class VersionButton: NSButton {
         }
         revert = item
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2, execute: item)
-    }
-}
-
-/// A small round dot in a system colour, redrawn for the appearance it is shown in.
-private final class StatusDot: NSView {
-    private let color: NSColor
-
-    init(color: NSColor) {
-        self.color = color
-        super.init(frame: .zero)
-        wantsLayer = true
-        layer?.cornerRadius = 3.5
-    }
-
-    required init?(coder: NSCoder) { fatalError() }
-
-    override var wantsUpdateLayer: Bool { true }
-
-    override func updateLayer() {
-        effectiveAppearance.performAsCurrentDrawingAppearance { layer?.backgroundColor = color.cgColor }
     }
 }
 

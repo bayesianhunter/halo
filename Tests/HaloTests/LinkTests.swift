@@ -18,6 +18,17 @@ final class LinkTests: XCTestCase {
         XCTAssertFalse(try JSONDecoder().decode(LinkDevice.self, from: Data(noBattery.utf8)).charging)
     }
 
+    func testFullOnCableTravelsButIsNotGuessedForOldPeersOrInvalidLevels() throws {
+        let full = LinkDevice(name: "Mouse", kind: .mouse, battery: 100, chargedOnCable: true, reversed: false, pointing: true)
+        XCTAssertTrue(try JSONDecoder().decode(LinkDevice.self, from: JSONEncoder().encode(full)).chargedOnCable)
+        let old = #"{"name":"Mouse","kind":"mouse","battery":100,"charging":false}"#
+        XCTAssertFalse(try JSONDecoder().decode(LinkDevice.self, from: Data(old.utf8)).chargedOnCable)
+        for battery in ["null", "90"] {
+            let invalid = "{\"name\":\"Mouse\",\"battery\":\(battery),\"chargedOnCable\":true}"
+            XCTAssertFalse(try JSONDecoder().decode(LinkDevice.self, from: Data(invalid.utf8)).chargedOnCable)
+        }
+    }
+
     func hex(_ data: Data) -> String { data.map { String(format: "%02x", $0) }.joined() }
 
     func testBothSidesDeriveTheSameLongTermKey() throws {

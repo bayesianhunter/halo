@@ -6,7 +6,7 @@ import HaloCore
 /// Drawn on a 24 pt grid, y down. With a battery level the ring becomes a track
 /// and the level an arc over it, running clockwise from twelve o'clock as Apple's battery rings do and brightening
 /// towards its end, the way the system's progress rings look. Monochrome as a template image; with a `tint`,
-/// for a charging device, the whole mark takes that colour instead, so charging reads apart from running low.
+/// the whole mark takes that colour instead: red for low and unattended, green while charging.
 enum StatusIcon {
     static let ringRadius: CGFloat = 7.0
     static let weight: CGFloat = 1.75
@@ -47,9 +47,9 @@ enum StatusIcon {
                 // Full is one solid ring: a gradient all the way round would meet itself at twelve with a seam.
                 context.setStrokeColor(level >= 1 ? to : track)
                 context.strokeEllipse(in: ring)
-                guard level < 1 else { return drawDot() }
+                guard level > 0 && level < 1 else { return drawDot() }
                 let start = -CGFloat.pi / 2
-                let sweep = 2 * .pi * CGFloat(min(1, max(0.04, level)))
+                let sweep = 2 * .pi * CGFloat(min(1, max(0, level)))
                 context.addArc(center: center, radius: ringRadius, startAngle: start, endAngle: start + sweep, clockwise: false)
                 context.replacePathWithStrokedPath()
                 context.saveGState()
@@ -76,8 +76,8 @@ enum StatusIcon {
 extension StatusIcon {
     static let dotAngle = -50 * CGFloat.pi / 180, dotOffset: CGFloat = 3.5, dotRadius: CGFloat = 1.7
 
-    /// The mark's dot in red, for a device running low. A still layer over a dotless template image, since a template
-    /// image takes one colour only; it is redrawn only when the reading changes, and never moves.
+    /// The update's blue point over the ring. A still layer over a dotless image, since a template image takes
+    /// one colour only; it is redrawn only when the state changes, and never moves.
     final class Dot: CAShapeLayer {
         /// Puts the dot exactly where the image draws it, for the image laid out in `rect` of a view whose y axis
         /// points down when `flipped`, as a status bar button's does.
@@ -92,10 +92,6 @@ extension StatusIcon {
         }
     }
 
-    /// The colour a charging device gives the whole mark: red, orange or green by charge.
-    static func color(charging percent: Int) -> NSColor {
-        percent <= Battery.lowPercent ? .systemRed : percent <= 50 ? .systemOrange : .systemGreen
-    }
 }
 
 enum Brand {

@@ -157,10 +157,12 @@ public struct DiagnosticsReport: Codable, Equatable {
         public var name: String
         public var percent: Int
         public var charging: Bool
+        public var chargedOnCable: Bool?
         public init(_ battery: Battery) {
             name = battery.name
             percent = battery.percent
             charging = battery.charging
+            chargedOnCable = battery.chargedOnCable
         }
     }
 
@@ -288,6 +290,9 @@ public struct DiagnosticsReport: Codable, Equatable {
         public var universalControlCurrent: Bool?
         public var pointerHere: Bool?
         public var menuOpen: Bool?
+        /// Views actually attached to the visible menu, rather than the device model's next snapshot.
+        public var openMenuDeviceNames: [String]?
+        public var menuOpening: Int?
         /// The paired Mac's section: its title and rows, or nil while unpaired. A device it lends here through Universal
         /// Control is listed there once, in its place, with this Mac's switch (`lent`).
         public var peerTitle: String?
@@ -544,7 +549,9 @@ public struct DiagnosticsReport: Codable, Equatable {
             lines.append("")
         }
         if !batteries.isEmpty {
-            lines += ["## Batteries", ""] + batteries.map { "- \($0.name): \($0.percent)%\($0.charging ? ", charging" : "")" } + [""]
+            lines += ["## Batteries", ""] + batteries.map {
+                "- \($0.name): \($0.percent)%\($0.charging ? ", charging" : $0.chargedOnCable == true ? ", fully charged, plugged in" : "")"
+            } + [""]
         }
         if let forecasts = batteryForecasts {
             lines += ["## Days left", ""]

@@ -119,7 +119,7 @@ extension AppDelegate {
         audioBatteryLedger.note(reading).forEach(Events.record)
     }
 
-    /// The window shows the new state; an open menu keeps its snapshot until it next opens (`rebuildMenu`).
+    /// Both visible surfaces take connection changes, including a menu that is already tracking.
     func audioDisplayChanged() {
         settingsChanged()
     }

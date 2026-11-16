@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.3 (2026-11-16)
+
+- Clearer battery alerts: low devices waiting to charge take priority, charging stays green, and updates use blue.
+- MX Master 2S reports charging and charge completion over Bluetooth. A full mouse still plugged in keeps a green
+  point; coarse battery levels stay as reported by the device.
+- Bluetooth speakers appear and disappear while the menu is open, including when the system's Bluetooth device
+  list is temporarily unavailable.
+- Update notes appear as plain text in the update window, with the full version history available separately.
+
 ## 0.8.2 (2026-11-13)
 
 - A device plugged in to charge while the menu is open shows its charging plug at once, instead of at the next

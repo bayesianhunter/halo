@@ -287,6 +287,17 @@
         }
       }
     },
+    "%@ is fully charged and plugged in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 已充满，仍连接充电线"
+          }
+        }
+      }
+    },
     "%@ is locked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -793,6 +804,17 @@
         }
       }
     },
+    "Bluetooth audio is listed from Core Audio; Bluetooth device details are temporarily unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝牙音频设备由 Core Audio 列出，蓝牙设备详细信息暂时不可用"
+          }
+        }
+      }
+    },
     "Bluetooth Device" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -884,6 +906,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "连不上 %@：网络拦下了两台之间的连接，重启路由器通常就好"
+          }
+        }
+      }
+    },
+    "Fully charged, plugged in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已充满，仍连接充电线"
           }
         }
       }
